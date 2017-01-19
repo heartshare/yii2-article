@@ -8,5 +8,13 @@ namespace yuncms\article;
 
 class Module extends \yii\base\Module
 {
-    
+    /**
+     * @inheritdoc
+     */
+    public $controllerNamespace = 'yuncms\article\controllers';
+
+    /**
+     * @var string
+     */
+    public $defaultRoute = 'article';
 }
