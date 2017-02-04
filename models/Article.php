@@ -118,6 +118,15 @@ class Article extends ActiveRecord
     }
 
     /**
+     * 设置发布状态
+     * @return int
+     */
+    public function setPublished()
+    {
+        return $this->updateAttributes(['status' => static::STATUS_ACTIVE, 'published_at' => time()]);
+    }
+
+    /**
      * Category Relation
      * @return \yii\db\ActiveQuery
      */
@@ -162,7 +171,7 @@ class Article extends ActiveRecord
 
     public function afterDelete()
     {
-        ArticleData::deleteAll(['article_id'=>$this->id]);
+        ArticleData::deleteAll(['article_id' => $this->id]);
         parent::afterDelete();
     }
 }
