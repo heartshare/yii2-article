@@ -17,9 +17,14 @@
  * NOTE: this file must be saved in UTF-8 encoding.
  */
 return [
-    'Batch Deletion' => '批量删除',
+    'Is Best' => '是否精华',
+    'Is Hot' => '是否热门',
+    'Is Top' => '是否置顶',
+    'Pending' => '待审',
+    'Active' => '通过',
     'Article does not exist.' => '文章不存在',
     'Articles' => '文章',
+    'Batch Deletion' => '批量删除',
     'Comments' => '评论',
     'Content' => '内容',
     'Cover' => '封面',

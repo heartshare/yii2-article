@@ -40,6 +40,17 @@ class ArticleData extends ActiveRecord
     }
 
     /**
+     * @inheritdoc
+     */
+    public function attributeLabels()
+    {
+        return [
+            'article_id' => Yii::t('app', 'ID'),
+            'content' => Yii::t('article', 'Content'),
+        ];
+    }
+
+    /**
      * Data Relation
      * @return \yii\db\ActiveQuery
      */
