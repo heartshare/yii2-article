@@ -23,6 +23,14 @@ class Article extends ActiveRecord
     /**
      * @inheritdoc
      */
+    public static function find()
+    {
+        return new ArticleQuery(get_called_class());
+    }
+
+    /**
+     * @inheritdoc
+     */
     public function behaviors()
     {
         return [
@@ -34,13 +42,27 @@ class Article extends ActiveRecord
                 'tagFrequencyAttribute' => 'frequency',
             ],
             'category' => [
-                'class' => 'yuncms\tag\behaviors\CategoryBehavior',
+                'class' => 'yuncms\system\behaviors\CategoryBehavior',
                 'categoryValuesAsArray' => true,
                 'categoryRelation' => 'categories',
                 'categoryValueAttribute' => 'id',
                 'categoryFrequencyAttribute' => 'frequency',
             ],
         ];
+    }
+
+    public function isActive()
+    {
+        return $this->status == static::STATUS_ACTIVE;
+    }
+
+    /**
+     * 是否是作者
+     * @return bool
+     */
+    public function isAuthor()
+    {
+        return $this->user_id == Yii::$app->user->id;
     }
 
     /**
@@ -62,12 +84,22 @@ class Article extends ActiveRecord
     }
 
     /**
+     * Data Relation
+     * @return \yii\db\ActiveQuery
+     */
+    public function getData()
+    {
+        return $this->hasOne(ArticleData::className(), ['article_id' => 'id']);
+    }
+
+    /**
      * {@inheritdoc}
      */
     public static function tableName()
     {
         return '{{%article}}';
     }
+
     public static function getStatusList()
     {
         return [
