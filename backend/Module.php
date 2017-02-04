@@ -6,7 +6,7 @@
  */
 namespace yuncms\article\backend;
 
-class Module extends \yii\base\Module
+class Module extends \yuncms\article\Module
 {
     /**
      * @inheritdoc

@@ -15,6 +15,8 @@ use yii\db\ActiveRecord;
  * @property int $id
  * @property string $content
  * @property integer $markdown
+ *
+ * @property Article $article
  */
 class ArticleData extends ActiveRecord
 {
@@ -24,5 +26,25 @@ class ArticleData extends ActiveRecord
     public static function tableName()
     {
         return '{{%article_data}}';
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function rules()
+    {
+        return [
+            [['content'], 'required'],
+            [['content'], 'filter', 'filter' => 'trim'],
+        ];
+    }
+
+    /**
+     * Data Relation
+     * @return \yii\db\ActiveQuery
+     */
+    public function getArticle()
+    {
+        return $this->hasOne(Article::className(), ['id' => 'article_id']);
     }
 }

@@ -13,6 +13,10 @@ use yuncms\system\models\Category;
 
 /**
  * Class Article
+ *
+ * @property int $id
+ *
+ * @property ArticleData $data
  * @package yuncms\article\models
  */
 class Article extends ActiveRecord
@@ -34,6 +38,9 @@ class Article extends ActiveRecord
     public function behaviors()
     {
         return [
+            'timestamp' => [
+                'class' => 'yii\behaviors\TimestampBehavior'
+            ],
             'tag' => [
                 'class' => 'yuncms\tag\behaviors\TagBehavior',
                 'tagValuesAsArray' => true,
@@ -48,6 +55,48 @@ class Article extends ActiveRecord
                 'categoryValueAttribute' => 'id',
                 'categoryFrequencyAttribute' => 'frequency',
             ],
+            'blameable' => [
+                'class' => 'yii\behaviors\BlameableBehavior',
+                'attributes' => [
+                    ActiveRecord::EVENT_BEFORE_INSERT => 'user_id',
+                ],
+            ]
+        ];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function rules()
+    {
+        return [
+            [['title'], 'required'],
+            [['title', 'cover', 'description'], 'filter', 'filter' => 'trim'],
+            ['is_top', 'boolean'],
+            ['is_hot', 'boolean'],
+            ['is_best', 'boolean'],
+            ['status', 'default', 'value' => self::STATUS_PENDING],
+            ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_PENDING]],
+        ];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function attributeLabels()
+    {
+        return [
+            'id' => Yii::t('app', 'ID'),
+            'title' => Yii::t('article', 'Title'),
+            'description' => Yii::t('article', 'Description'),
+            'cover' => Yii::t('article', 'Cover'),
+            'status' => Yii::t('article', 'Status'),
+            'comments' => Yii::t('article', 'Comments'),
+            'views' => Yii::t('article', 'Views'),
+            'content' => Yii::t('article', 'Content'),
+            'created_at' => Yii::t('article', 'Created At'),
+            'updated_at' => Yii::t('article', 'Updated At'),
+            'published_at' => Yii::t('article', 'Published At'),
         ];
     }
 
@@ -71,7 +120,7 @@ class Article extends ActiveRecord
      */
     public function getCategories()
     {
-        return $this->hasMany(Category::className(), ['id' => 'category_id'])->viaTable('{{%article_category}}', ['stream_id' => 'id']);
+        return $this->hasMany(Category::className(), ['id' => 'category_id'])->viaTable('{{%article_category}}', ['article_id' => 'id']);
     }
 
     /**
@@ -80,7 +129,7 @@ class Article extends ActiveRecord
      */
     public function getTags()
     {
-        return $this->hasMany(Tag::className(), ['id' => 'tag_id'])->viaTable('{{%article_tag}}', ['stream_id' => 'id']);
+        return $this->hasMany(Tag::className(), ['id' => 'tag_id'])->viaTable('{{%article_tag}}', ['article_id' => 'id']);
     }
 
     /**
@@ -103,9 +152,14 @@ class Article extends ActiveRecord
     public static function getStatusList()
     {
         return [
-            self::STATUS_PENDING => Yii::t('article','Status Pending'),
-            self::STATUS_ACTIVE => Yii::t('article','Status Active'),
+            self::STATUS_PENDING => Yii::t('article', 'Status Pending'),
+            self::STATUS_ACTIVE => Yii::t('article', 'Status Active'),
         ];
     }
 
+    public function afterDelete()
+    {
+        ArticleData::deleteAll(['article_id'=>$this->id]);
+        parent::afterDelete();
+    }
 }

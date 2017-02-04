@@ -1,0 +1,39 @@
+<?php
+use yii\helpers\Html;
+use yii\bootstrap\ActiveForm;
+use yuncms\article\models\Article;
+
+/* @var \yii\web\View $this */
+/* @var yuncms\article\models\Article $model */
+/* @var yuncms\article\models\ArticleData $data */
+/* @var ActiveForm $form */
+?>
+<?php $form = ActiveForm::begin(['layout'=>'horizontal']); ?>
+<fieldset>
+
+    <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'status')->inline(true)->radioList([Article::STATUS_ACTIVE => Yii::t('article', 'Active'), Article::STATUS_PENDING => Yii::t('app', 'Pending')]) ?>
+
+    <?= $form->field($model, 'cover')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'is_top')->inline(true)->radioList([true => Yii::t('app', 'Yes'), false => Yii::t('app', 'No')]) ?>
+
+    <?= $form->field($model, 'is_hot')->inline(true)->radioList([true => Yii::t('app', 'Yes'), false=> Yii::t('app', 'No')]) ?>
+
+    <?= $form->field($model, 'is_best')->inline(true)->radioList([true => Yii::t('app', 'Yes'), false => Yii::t('app', 'No')]) ?>
+
+    <?= $form->field($model, 'description')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($data, 'content')->textarea() ?>
+</fieldset>
+<div class="form-actions">
+    <div class="row">
+        <div class="col-md-12">
+            <?= Html::submitButton($model->isNewRecord ? Yii::t('app', 'Create') : Yii::t('app', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+        </div>
+    </div>
+</div>
+
+<?php ActiveForm::end(); ?>
+
