@@ -17,6 +17,8 @@ use yuncms\article\models\Article;
 
     <?= $form->field($model, 'cover')->textInput(['maxlength' => true]) ?>
 
+    <?= $form->field($model, 'cover')->fileInput(['style'=>'max-width:200px;max-height:200px']);?>
+
     <?= $form->field($model, 'is_top')->inline(true)->radioList([true => Yii::t('app', 'Yes'), false => Yii::t('app', 'No')]) ?>
 
     <?= $form->field($model, 'is_hot')->inline(true)->radioList([true => Yii::t('app', 'Yes'), false=> Yii::t('app', 'No')]) ?>
