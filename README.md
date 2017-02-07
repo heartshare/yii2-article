@@ -4,5 +4,5 @@
 Url规则
 ````
 'article'=>'article/article/index',
-'article/<id:\d+>'=>'article/article/view',
+'article/<key:[\w+]+>' => 'article/article/view',
 ````

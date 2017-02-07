@@ -169,6 +169,39 @@ class Article extends ActiveRecord
         ];
     }
 
+    /**
+     * 保存后生成短网址
+     * @param bool $insert
+     * @param array $changedAttributes
+     */
+    public function afterSave($insert, $changedAttributes)
+    {
+        if ($insert) {
+            $this->updateAttributes(['key' => $this->generateKey()]);
+        }
+        return parent::afterSave($insert, $changedAttributes);
+    }
+
+    /**
+     * 生成key
+     */
+    protected function generateKey()
+    {
+        $result = sprintf("%u", crc32($this->id));
+        $key = '';
+        while ($result > 0) {
+            $s = $result % 62;
+            if ($s > 35) {
+                $s = chr($s + 61);
+            } elseif ($s > 9 && $s <= 35) {
+                $s = chr($s + 55);
+            }
+            $key .= $s;
+            $result = floor($result / 62);
+        }
+        return $key;
+    }
+
     public function afterDelete()
     {
         ArticleData::deleteAll(['article_id' => $this->id]);

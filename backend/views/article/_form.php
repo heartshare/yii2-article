@@ -2,13 +2,14 @@
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 use yuncms\article\models\Article;
+use yuncms\admin\widgets\UEditor;
 
 /* @var \yii\web\View $this */
 /* @var yuncms\article\models\Article $model */
 /* @var yuncms\article\models\ArticleData $data */
 /* @var ActiveForm $form */
 ?>
-<?php $form = ActiveForm::begin(['layout'=>'horizontal']); ?>
+<?php $form = ActiveForm::begin(['layout' => 'horizontal']); ?>
 <fieldset>
 
     <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
@@ -17,17 +18,17 @@ use yuncms\article\models\Article;
 
     <?= $form->field($model, 'cover')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'cover')->fileInput(['style'=>'max-width:200px;max-height:200px']);?>
+    <?= $form->field($model, 'cover')->fileInput(['style' => 'max-width:200px;max-height:200px']); ?>
 
     <?= $form->field($model, 'is_top')->inline(true)->radioList([true => Yii::t('app', 'Yes'), false => Yii::t('app', 'No')]) ?>
 
-    <?= $form->field($model, 'is_hot')->inline(true)->radioList([true => Yii::t('app', 'Yes'), false=> Yii::t('app', 'No')]) ?>
+    <?= $form->field($model, 'is_hot')->inline(true)->radioList([true => Yii::t('app', 'Yes'), false => Yii::t('app', 'No')]) ?>
 
     <?= $form->field($model, 'is_best')->inline(true)->radioList([true => Yii::t('app', 'Yes'), false => Yii::t('app', 'No')]) ?>
 
-    <?= $form->field($model, 'description')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'description')->textInput(['maxlength' => true, 'rows' => 5]) ?>
 
-    <?= $form->field($data, 'content')->textarea() ?>
+    <?= $form->field($data, 'content')->widget(UEditor::className()) ?>
 </fieldset>
 <div class="form-actions">
     <div class="row">

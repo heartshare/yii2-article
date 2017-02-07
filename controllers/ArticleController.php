@@ -46,9 +46,9 @@ class ArticleController extends Controller
         return $this->render('index', ['dataProvider' => $dataProvider]);
     }
 
-    public function actionView($id)
+    public function actionView($key)
     {
-        $model = $this->findModel($id);
+        $model = $this->findModel($key);
         if ($model && ($model->isActive() || $model->isAuthor())) {
             return $this->render('view', [
                 'model' => $model,
@@ -63,14 +63,14 @@ class ArticleController extends Controller
      * Finds the Article model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      *
-     * @param int $id
+     * @param string $key
      *
      * @return Article the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($id)
+    protected function findModel($key)
     {
-        if (($model = Article::findOne($id)) != null) {
+        if (($model = Article::findOne(['key'=>$key])) != null) {
             return $model;
         }
         throw new NotFoundHttpException('The requested page does not exist');

@@ -6,7 +6,7 @@ use yii\helpers\Html;
 
 
 <div class="media-left">
-    <a href="<?= Url::to(['/article/article/view', 'id' => $model->id]); ?>">
+    <a href="<?= Url::to(['/article/article/view', 'key' => $model->key]); ?>">
         <img class="media-object" src="<?= $model->cover; ?>" alt="utf-8">
     </a>
 </div>

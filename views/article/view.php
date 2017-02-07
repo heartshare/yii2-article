@@ -21,8 +21,10 @@ $this->params['breadcrumbs'][] = $model->title;
         </div>
 
         <article class="article-content">
-            <?= Html::encode($model->data->content); ?>
+            <?= $model->data->content; ?>
         </article>
+
+        <?= \yuncms\comment\widgets\Comment::widget(['source_type' => 'article', 'source_id' => $model->id, 'hide_cancel' => false]) ?>
 
     </div><!-- /.main -->
 
