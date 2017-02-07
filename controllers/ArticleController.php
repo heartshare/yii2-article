@@ -50,6 +50,8 @@ class ArticleController extends Controller
     {
         $model = $this->findModel($key);
         if ($model && ($model->isActive() || $model->isAuthor())) {
+            if (!$model->isAuthor()) $model->updateCounters(['views' => 1]);
+
             return $this->render('view', [
                 'model' => $model,
             ]);
@@ -70,7 +72,7 @@ class ArticleController extends Controller
      */
     protected function findModel($key)
     {
-        if (($model = Article::findOne(['key'=>$key])) != null) {
+        if (($model = Article::findOne(['key' => $key])) != null) {
             return $model;
         }
         throw new NotFoundHttpException('The requested page does not exist');
