@@ -19,10 +19,9 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="col-xs-12 col-md-9 main">
         <?= ListView::widget([
             'options' => [
-                'tag' => 'ul',
-                'class' => 'media-list'
+                'class' => 'stream-list blog-stream'
             ],
-            'itemOptions' => ['tag' => 'li', 'class' => 'media'],
+            'itemOptions' => ['tag' => 'section', 'class' => 'stream-list-item clearfix'],
             'layout' => '{items} <div class="text-center">{pager}</div>',
             'pager' => [
                 'maxButtonCount' => 10,

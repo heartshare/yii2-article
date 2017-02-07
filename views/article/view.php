@@ -61,6 +61,6 @@ $this->params['breadcrumbs'][] = $model->title;
         <?= \yuncms\article\widgets\PopularArticle::widget(['limit'=>10,'cache'=>3600]); ?>
 
         <?= \yuncms\article\widgets\PopularTag::widget(['limit'=>10,'cache'=>3600]); ?>
-        
+
     </div><!-- /.side -->
 </div>
