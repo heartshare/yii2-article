@@ -67,11 +67,11 @@ $this->registerJs('
     <div class="col-xs-12 col-md-3 side">
         <div class="widget-user">
             <div class="media">
-                <a class="pull-left" href="https://wenda.tipask.com/people/1"><img class="media-object avatar-64" src="https://wenda.tipask.com/image/avatar/1_middle.jpg" alt="不写代码的码农"></a>
+                <a class="pull-left" href="<?=Url::to(['/user/profile/show','id'=>$model->user_id])?>"><img class="media-object avatar-64" src="<?=$model->user->getAvatar('middle')?>" alt="<?=$model->user->username?>"></a>
                 <div class="media-body ">
-                    <a href="https://wenda.tipask.com/people/1" class="media-heading">sdf_sky</a>
-                    <p class="text-muted">Tipask官方技术支持</p>
-                    <p class="text-muted">23 篇文章</p>
+                    <a href="<?=Url::to(['/user/profile/show','id'=>$model->user_id])?>" class="media-heading"><?=$model->user->username?></a>
+                    <p class="text-muted"><?=$model->user->profile->introduction?></p>
+                    <p class="text-muted"><?=$model->user->userData->articles?> 篇文章</p>
                 </div>
             </div>
         </div>

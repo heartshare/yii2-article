@@ -193,6 +193,8 @@ class Article extends ActiveRecord
     {
         if ($insert) {
             $this->updateAttributes(['key' => $this->generateKey()]);
+            /* 用户文章数+1 */
+            Yii::$app->user->identity->userData->updateCounters(['articles' => 1]);
         }
         return parent::afterSave($insert, $changedAttributes);
     }
@@ -219,6 +221,7 @@ class Article extends ActiveRecord
 
     public function afterDelete()
     {
+        $this->user->userData->updateCounters(['articles' => -1]);
         ArticleData::deleteAll(['article_id' => $this->id]);
         parent::afterDelete();
     }

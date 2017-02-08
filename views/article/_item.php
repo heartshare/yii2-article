@@ -24,9 +24,9 @@ use yii\helpers\Html;
             <span class="glyphicon glyphicon-thumbs-up"></span> 7
         </li>
         <li>
-            <a href="https://wenda.tipask.com/people/1503" target="_blank">
-                <img class="avatar-20 mr-10 hidden-xs" src="https://wenda.tipask.com/image/avatar/1503_small.jpg"
-                     alt="小明"> <?=$model->user->username?>
+            <a href="<?=Url::to(['/user/profile/show','id'=>$model->user_id])?>" target="_blank">
+                <img class="avatar-20 mr-10 hidden-xs" src="<?=$model->user->getAvatar('small')?>"
+                     alt="<?=$model->user->username?>"> <?=$model->user->username?>
             </a>
         </li>
         <li>发布于 <?= Yii::$app->formatter->asRelativeTime($model->created_at); ?></li>
