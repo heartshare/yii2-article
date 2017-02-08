@@ -26,7 +26,7 @@ use yii\helpers\Html;
         <li>
             <a href="https://wenda.tipask.com/people/1503" target="_blank">
                 <img class="avatar-20 mr-10 hidden-xs" src="https://wenda.tipask.com/image/avatar/1503_small.jpg"
-                     alt="小明"> 小明
+                     alt="小明"> <?=$model->user->username?>
             </a>
         </li>
         <li>发布于 <?= Yii::$app->formatter->asRelativeTime($model->created_at); ?></li>

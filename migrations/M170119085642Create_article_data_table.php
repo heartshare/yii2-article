@@ -17,7 +17,6 @@ class M170119085642Create_article_data_table extends Migration
         $this->createTable('{{%article_data}}', [
             'article_id' => $this->integer(11)->notNull(),
             'content' => $this->text()->notNull()->comment('内容'),
-            'markdown' => $this->boolean()->notNull()->defaultValue(false)->comment('是否markdown格式'),
         ], $tableOptions);
         $this->addPrimaryKey('pk','{{%article_data}}','article_id');
         $this->addForeignKey('fk', '{{%article_data}}', 'article_id', '{{%article}}', 'id', 'CASCADE', 'CASCADE');

@@ -7,7 +7,6 @@
 namespace yuncms\article\models;
 
 use Yii;
-use yii\helpers\StringHelper;
 use yii\db\ActiveRecord;
 use yuncms\tag\models\Tag;
 use yuncms\system\models\Category;
@@ -16,6 +15,9 @@ use yuncms\system\models\Category;
  * Class Article
  *
  * @property int $id
+ * @property string $title
+ * @property string $description
+ * @property int $status
  *
  * @property ArticleData $data
  * @package yuncms\article\models
@@ -149,6 +151,15 @@ class Article extends ActiveRecord
     }
 
     /**
+     * User Relation
+     * @return \yii\db\ActiveQueryInterface
+     */
+    public function getUser()
+    {
+        return $this->hasOne(Yii::$app->user->identityClass, ['id' => 'user_id']);
+    }
+
+    /**
      * Data Relation
      * @return \yii\db\ActiveQuery
      */
@@ -182,10 +193,6 @@ class Article extends ActiveRecord
     {
         if ($insert) {
             $this->updateAttributes(['key' => $this->generateKey()]);
-        }
-        if(empty($this->description)){
-            $content = $this->getData()->content;
-            $this->updateAttributes(['description' => StringHelper::byteSubstr(strip_tags($content), 0, 100)]);
         }
         return parent::afterSave($insert, $changedAttributes);
     }

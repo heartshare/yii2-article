@@ -8,6 +8,7 @@ namespace yuncms\article\models;
 
 use Yii;
 use yii\db\ActiveRecord;
+use yii\helpers\StringHelper;
 
 /**
  * This is the model class for table "{{%article_data}}".
@@ -57,5 +58,18 @@ class ArticleData extends ActiveRecord
     public function getArticle()
     {
         return $this->hasOne(Article::className(), ['id' => 'article_id']);
+    }
+
+    /**
+     * 保存后
+     * @param bool $insert
+     * @param array $changedAttributes
+     */
+    public function afterSave($insert, $changedAttributes)
+    {
+        if (empty($this->article->description)) {
+            $this->article->updateAttributes(['description' => mb_substr(strip_tags($this->content), 0, 100)]);
+        }
+        return parent::afterSave($insert, $changedAttributes);
     }
 }
