@@ -31,7 +31,6 @@ use yii\helpers\Html;
         </li>
         <li>发布于 <?= Yii::$app->formatter->asRelativeTime($model->created_at); ?></li>
         <li>阅读 ( <?= $model->views ?> )</li>
-
     </ul>
 </div>
 

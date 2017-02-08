@@ -11,7 +11,7 @@ use yii\helpers\Html;
     <ul class="taglist-inline multi">
         <?php
         foreach ($tags as $tag):?>
-            <li class="tag"><a href="<?= Url::to(['/article/article/tag', 'tag' => $tag->name]) ?>" rel="tag"><?= Html::encode($tag->name) ?></a></li>
+            <li class="tagPopup"><a href="<?= Url::to(['/article/article/tag', 'tag' => $tag->name]) ?>" class="tag" rel="tag"><?= Html::encode($tag->name) ?></a></li>
         <?php endforeach;?>
     </ul>
 </div>

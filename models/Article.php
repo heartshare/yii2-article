@@ -7,6 +7,7 @@
 namespace yuncms\article\models;
 
 use Yii;
+use yii\helpers\StringHelper;
 use yii\db\ActiveRecord;
 use yuncms\tag\models\Tag;
 use yuncms\system\models\Category;
@@ -75,6 +76,9 @@ class Article extends ActiveRecord
             ['is_top', 'boolean'],
             ['is_hot', 'boolean'],
             ['is_best', 'boolean'],
+            ['is_top', 'default', 'value' => false],
+            ['is_hot', 'default', 'value' => false],
+            ['is_best', 'default', 'value' => false],
             ['status', 'default', 'value' => self::STATUS_PENDING],
             ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_PENDING]],
         ];
@@ -178,6 +182,10 @@ class Article extends ActiveRecord
     {
         if ($insert) {
             $this->updateAttributes(['key' => $this->generateKey()]);
+        }
+        if(empty($this->description)){
+            $content = $this->getData()->content;
+            $this->updateAttributes(['description' => StringHelper::byteSubstr(strip_tags($content), 0, 100)]);
         }
         return parent::afterSave($insert, $changedAttributes);
     }

@@ -7,9 +7,21 @@
 namespace yuncms\article\models;
 
 use yii\db\ActiveQuery;
+use yuncms\tag\behaviors\TagQueryBehavior;
 
+/**
+ * Class ArticleQuery
+ * @package yuncms\article\models
+ */
 class ArticleQuery extends ActiveQuery
 {
+    public function behaviors()
+    {
+        return [
+            TagQueryBehavior::className(),
+        ];
+    }
+
     /**
      * Apply possible notes order to query
      * @param string $order

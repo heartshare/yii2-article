@@ -7,10 +7,12 @@
 namespace yuncms\article\controllers;
 
 use Yii;
+use yii\helpers\Url;
 use yii\web\Controller;
 use yii\filters\AccessControl;
 use yii\data\ActiveDataProvider;
 use yii\web\NotFoundHttpException;
+use yuncms\tag\models\Tag;
 use yuncms\article\models\Article;
 
 /**
@@ -28,7 +30,7 @@ class ArticleController extends Controller
                 'rules' => [
                     [
                         'allow' => true,
-                        'actions' => ['index', 'view'],
+                        'actions' => ['index', 'view','tag'],
                         'roles' => ['?', '@'],
                     ]
                 ],
@@ -44,6 +46,28 @@ class ArticleController extends Controller
         ]);
         $query->applyOrder(Yii::$app->request->get('order', 'new'));
         return $this->render('index', ['dataProvider' => $dataProvider]);
+    }
+
+    /**
+     * 显示标签页
+     *
+     * @param string $tag 标签
+     * @return string
+     * @throws NotFoundHttpException
+     */
+    public function actionTag($tag)
+    {
+        Url::remember('', 'actions-redirect');
+        if (($model = Tag::findOne(['name' => $tag])) != null) {
+            $query = Article::find()->anyTagValues($tag, 'name')->with('user');
+            $query->andWhere(['>', Article::tableName() . '.status', 0]);
+            $dataProvider = new ActiveDataProvider([
+                'query' => $query,
+            ]);
+            return $this->render('tag', ['model' => $model, 'dataProvider' => $dataProvider]);
+        } else {
+            throw new NotFoundHttpException (Yii::t('yii', 'The requested page does not exist.'));
+        }
     }
 
     public function actionView($key)
