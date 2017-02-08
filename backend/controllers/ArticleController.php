@@ -3,6 +3,7 @@
 namespace yuncms\article\backend\controllers;
 
 use Yii;
+use yii\helpers\Url;
 use yii\web\Response;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
@@ -39,6 +40,7 @@ class ArticleController extends Controller
      */
     public function actionIndex()
     {
+        Url::remember('', 'actions-redirect');
         $searchModel = new ArticleSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -111,6 +113,20 @@ class ArticleController extends Controller
             'model' => $model,
             'data' => $data,
         ]);
+    }
+
+    /**
+     * Audit an existing Comment model.
+     * If Audit is successful, the browser will be redirected to the 'index' page.
+     * @param integer $id
+     * @return mixed
+     */
+    public function actionAudit($id)
+    {
+        $model = $this->findModel($id);
+        $model->setPublished();
+        Yii::$app->getSession()->setFlash('success', Yii::t('app', 'Update success.'));
+        return $this->redirect(Url::previous('actions-redirect'));
     }
 
     /**

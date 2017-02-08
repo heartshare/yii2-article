@@ -18,8 +18,8 @@ class ArticleSearch extends Article
     public function rules()
     {
         return [
-            [['id', 'status', 'comments', 'views', 'is_top', 'is_hot', 'is_best', 'user_id', 'created_at', 'updated_at', 'published_at'], 'integer'],
-            [['title', 'cover', 'description'], 'safe'],
+            [['id', 'status', 'comments', 'supports', 'collections', 'views', 'is_top', 'is_hot', 'is_best', 'user_id', 'created_at', 'updated_at', 'published_at'], 'integer'],
+            [['title'], 'safe'],
         ];
     }
 
@@ -63,6 +63,8 @@ class ArticleSearch extends Article
             'status' => $this->status,
             'comments' => $this->comments,
             'views' => $this->views,
+            'supports' => $this->supports,
+            'collections' => $this->collections,
             'is_top' => $this->is_top,
             'is_hot' => $this->is_hot,
             'is_best' => $this->is_best,
@@ -72,9 +74,7 @@ class ArticleSearch extends Article
             'published_at' => $this->published_at,
         ]);
 
-        $query->andFilterWhere(['like', 'title', $this->title])
-            ->andFilterWhere(['like', 'cover', $this->cover])
-            ->andFilterWhere(['like', 'description', $this->description]);
+        $query->andFilterWhere(['like', 'title', $this->title]);
 
         return $dataProvider;
     }

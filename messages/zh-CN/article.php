@@ -17,11 +17,14 @@
  * NOTE: this file must be saved in UTF-8 encoding.
  */
 return [
+    'Accepted' => '通过',
+    'Are you sure you want to Accepted this article?' => '你确实要审核通过该文章吗？',
     'Active' => '通过',
     'Article does not exist.' => '文章不存在',
     'Articles' => '文章',
     'Batch Deletion' => '批量删除',
     'Collect' => '收藏',
+    'Collections' => '收藏',
     'Comments' => '评论',
     'Concern' => '关注',
     'Concerned' => '已关注',
@@ -48,6 +51,7 @@ return [
     'Status Active' => '通过',
     'Status Pending' => '待审',
     'Support' => '推荐',
+    'Supports' => '推荐',
     'Title' => '标题',
     'Update Article' => '更新文章',
     'Updated At' => '更新时间',

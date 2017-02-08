@@ -98,6 +98,8 @@ class Article extends ActiveRecord
             'cover' => Yii::t('article', 'Cover'),
             'status' => Yii::t('article', 'Status'),
             'comments' => Yii::t('article', 'Comments'),
+            'supports' => Yii::t('article', 'Supports'),
+            'collections' => Yii::t('article', 'Collections'),
             'views' => Yii::t('article', 'Views'),
             'is_top' => Yii::t('article', 'Is Top'),
             'is_hot' => Yii::t('article', 'Is Hot'),
@@ -195,6 +197,9 @@ class Article extends ActiveRecord
             $this->updateAttributes(['key' => $this->generateKey()]);
             /* 用户文章数+1 */
             Yii::$app->user->identity->userData->updateCounters(['articles' => 1]);
+        }
+        if ($this->isActive()) {
+            $this->updateAttributes(['published_at' => time()]);
         }
         return parent::afterSave($insert, $changedAttributes);
     }

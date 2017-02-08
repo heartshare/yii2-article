@@ -61,16 +61,31 @@ jQuery(\"#batch_deletion\").on(\"click\", function () {
                     'title',
                     //'cover',
                     'comments',
+                    'supports',
+                    'collections',
                     'views',
                     'is_top:boolean',
                     'is_hot:boolean',
                     'is_best:boolean',
                     // 'description',
-                    'user_id',
-                    'status',
+                    'user.username',
+                    [
+                        'header' => Yii::t('article', 'Status'),
+                        'value' => function ($model) {
+                            if (!$model->isActive()) {
+                                return Html::a(Yii::t('article', 'Pending'), ['audit', 'id' => $model->id], [
+                                    'class' => 'btn btn-xs btn-success btn-block',
+                                    'data-method' => 'post',
+                                    'data-confirm' => Yii::t('article', 'Are you sure you want to Accepted this article?'),
+                                ]);
+                            } else {
+                                return Yii::t('article', 'Accepted');
+                            }
+                        },
+                        'format' => 'raw',
+                    ],
                     'created_at:datetime',
                     // 'updated_at:datetime',
-                    'published_at:datetime',
                     ['class' => 'yii\grid\ActionColumn', 'header' => Yii::t('app', 'Operation'),],
                 ],
             ]); ?>
