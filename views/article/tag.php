@@ -4,7 +4,7 @@ use yii\helpers\Html;
 use yii\widgets\ListView;
 
 $this->title = Html::encode($model->name);
-$this->params['breadcrumbs'][] = Yii::t('article', 'Articles');
+$this->params['breadcrumbs'][] = ['label' => Yii::t('article', 'Articles'), 'url' => Url::to(['/article/article/index'])];
 $this->params['breadcrumbs'][] = Html::encode($model->name);
 ?>
 <div class="row">
@@ -19,21 +19,21 @@ $this->params['breadcrumbs'][] = Html::encode($model->name);
                         ?>
                         <button type="button" data-target="follow-tag" class="btn btn-default btn-xs active"
                                 data-source_id="<?= $model->id ?>" data-show_num="false" data-toggle="tooltip"
-                                data-placement="right" title="" data-original-title="关注后将获得更新提醒">已关注
+                                data-placement="right" title="" data-original-title="<?=Yii::t('article', 'Concerned will be updated to remind');?>"><?=Yii::t('article', 'Concerned');?>
                         </button>
                         <?php
                     } else {
                         ?>
                         <button type="button" data-target="follow-tag" class="btn btn-default btn-xs"
                                 data-source_id="<?= $model->id ?>" data-show_num="false" data-toggle="tooltip"
-                                data-placement="right" title="" data-original-title="关注后将获得更新提醒">关注
+                                data-placement="right" title="" data-original-title="<?=Yii::t('article', 'Concerned will be updated to remind');?>"><?=Yii::t('article', 'Concern');?>
                         </button>
                         <?php
                     }
                     ?>
                 </div>
             </div>
-            <p class="tag-header-summary"><?= empty($model->description) ? Yii::t('question', 'No introduction') : Html::encode($model->description); ?></p>
+            <p class="tag-header-summary"><?= empty($model->description) ? Yii::t('article', 'No introduction') : Html::encode($model->description); ?></p>
         </section>
         <?= ListView::widget([
             'options' => [

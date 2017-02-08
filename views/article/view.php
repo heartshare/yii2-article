@@ -37,9 +37,9 @@ $this->registerJs('
                     <ul class="list-inline text-muted">
                         <li>
                             <i class="fa fa-clock-o"></i>
-                            发表于 <?= Yii::$app->formatter->asDate($model->created_at) ?>
+                            <?=Yii::t('article', 'Published in');?> <?= Yii::$app->formatter->asDate($model->created_at) ?>
                         </li>
-                        <li>阅读 ( <?= $model->views ?> )</li>
+                        <li><?=Yii::t('article', 'Views');?> ( <?= $model->views ?> )</li>
 
                     </ul>
                 </div>
@@ -48,15 +48,15 @@ $this->registerJs('
 
                 <button data-target="support-button" class="btn btn-success btn-lg mr-5"
                         data-source_id="<?= $model->id ?>" data-source_type="article"
-                        data-support_num="<?= $model->supports ?>"><?= $model->supports ?> 推荐
+                        data-support_num="<?= $model->supports ?>"><?= $model->supports ?> <?=Yii::t('article', 'Support');?>
                 </button>
                 <?php if (!Yii::$app->user->isGuest && Yii::$app->user->identity->isCollected(get_class($model), $model->id)): ?>
-                    <button data-target="collect-button" class="btn btn-default btn-lg" data-loading-text="加载中..."
-                            data-source_type="article" data-source_id="<?= $model->id ?>"> 已收藏
+                    <button data-target="collect-button" class="btn btn-default btn-lg" data-loading-text="<?=Yii::t('article', 'Loading...');?>"
+                            data-source_type="article" data-source_id="<?= $model->id ?>"> <?=Yii::t('article', 'collected');?>
                     </button>
                 <?php else: ?>
-                    <button data-target="collect-button" class="btn btn-default btn-lg" data-loading-text="加载中..."
-                            data-source_type="article" data-source_id="<?= $model->id ?>"> 收藏
+                    <button data-target="collect-button" class="btn btn-default btn-lg" data-loading-text="<?=Yii::t('article', 'Loading...');?>"
+                            data-source_type="article" data-source_id="<?= $model->id ?>"> <?=Yii::t('article', 'Collect');?>
                     </button>
                 <?php endif; ?>
             </div>
@@ -68,7 +68,7 @@ $this->registerJs('
         </div>
 
         <div class="widget-answers mt-15">
-            <h2 class="h4 post-title"><?= $model->comments ?> 条评论</h2>
+            <h2 class="h4 post-title"><?= Yii::t('article', '{n, plural, =0{No comment} =1{One comment} other{# reviews}}', ['n' => $model->comments]); ?></h2>
             <?= \yuncms\comment\widgets\Comment::widget(['source_type' => 'article', 'source_id' => $model->id, 'hide_cancel' => false]) ?>
         </div>
 
@@ -85,7 +85,7 @@ $this->registerJs('
                     <a href="<?= Url::to(['/user/profile/show', 'id' => $model->user_id]) ?>"
                        class="media-heading"><?= $model->user->username ?></a>
                     <p class="text-muted"><?= $model->user->profile->introduction ?></p>
-                    <p class="text-muted"><?= $model->user->userData->articles ?> 篇文章</p>
+                    <p class="text-muted"><?= Yii::t('article', '{n, plural, =0{No article} =1{One article} other{# articles}}', ['n' => $model->user->userData->articles]); ?></p>
                 </div>
             </div>
         </div>
