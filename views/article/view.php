@@ -6,6 +6,11 @@ use yii\helpers\Html;
 $this->title = $model->title;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('article', 'Articles'), 'url' => Url::to(['/article/article/index'])];
 $this->params['breadcrumbs'][] = $model->title;
+$this->registerJs('
+    var article_id = "' . $model->id . '";
+    load_comments(\'article\',article_id);
+    jQuery("#comments-article-"+article_id).collapse(\'show\');
+');
 ?>
 <div class="row">
     <div class="col-xs-12 col-md-9 main">
@@ -16,8 +21,8 @@ $this->params['breadcrumbs'][] = $model->title;
             <div class="article-meta text-center">
                 <time class="muted">
                     <i class="fa fa-clock-o"></i> <?= Yii::$app->formatter->asDate($model->created_at) ?></time>
-                    <span ><i class="fa fa-eye"></i> <?= $model->views?></span>
-
+                <span><i class="fa fa-eye"></i> <?= $model->views ?></span>
+                <span><i class="fa fa-eye"></i> <?= $model->comments ?></span>
             </div>
         </div>
 
@@ -25,7 +30,10 @@ $this->params['breadcrumbs'][] = $model->title;
             <?= $model->data->content; ?>
         </article>
 
-        <?= \yuncms\comment\widgets\Comment::widget(['source_type' => 'article', 'source_id' => $model->id, 'hide_cancel' => false]) ?>
+        <div class="widget-answers mt-15">
+            <h2 class="h4 post-title"><?= $model->comments ?> 条评论</h2>
+            <?= \yuncms\comment\widgets\Comment::widget(['source_type' => 'article', 'source_id' => $model->id, 'hide_cancel' => false]) ?>
+        </div>
 
     </div><!-- /.main -->
 
@@ -35,7 +43,9 @@ $this->params['breadcrumbs'][] = $model->title;
             <div class="panel-body">
                 <div class="media media-user">
                     <div class="media-left">
-                        <a href="/user/1"><img class="media-object" src="http://www.51siyuan.cn/storage/upload/5790a630d3a74_avatar_96_96.jpeg" alt="易大师"></a>
+                        <a href="/user/1"><img class="media-object"
+                                               src="http://www.51siyuan.cn/storage/upload/5790a630d3a74_avatar_96_96.jpeg"
+                                               alt="易大师"></a>
                         <div class="label label-primary">大师</div>
                     </div>
                     <div class="media-body">
@@ -51,16 +61,18 @@ $this->params['breadcrumbs'][] = $model->title;
                             <li>关注<h3>4</h3></li>
                             <li>金钱<h3>2447</h3></li>
                         </ul>
-                        <a class="follow btn btn-xs btn-success  " href="/friend/follow?id=1"><i class="fa fa-plus"></i> 关注Ta </a>
-                        <a class="btn btn-xs btn-primary " href="/message/default/create?id=1"><i class="fa fa-envelope"></i> 发私信</a>
+                        <a class="follow btn btn-xs btn-success  " href="/friend/follow?id=1"><i class="fa fa-plus"></i>
+                            关注Ta </a>
+                        <a class="btn btn-xs btn-primary " href="/message/default/create?id=1"><i
+                                class="fa fa-envelope"></i> 发私信</a>
                     </div>
                 </div>
             </div>
         </div>
 
-        <?= \yuncms\article\widgets\PopularArticle::widget(['limit'=>10,'cache'=>3600]); ?>
+        <?= \yuncms\article\widgets\PopularArticle::widget(['limit' => 10, 'cache' => 3600]); ?>
 
-        <?= \yuncms\article\widgets\PopularTag::widget(['limit'=>10,'cache'=>3600]); ?>
+        <?= \yuncms\article\widgets\PopularTag::widget(['limit' => 10, 'cache' => 3600]); ?>
 
     </div><!-- /.side -->
 </div>

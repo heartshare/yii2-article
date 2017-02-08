@@ -17,7 +17,8 @@ class M170119085622Create_article_table extends Migration
         $this->createTable('{{%article}}', [
             'id' => $this->primaryKey(),
             'key' => $this->string(),
-            'title' => $this->string(80)->notNull()->comment('标题'),
+            'title' => $this->string()->notNull()->comment('标题'),
+            'sub_title'=>$this->string(80)->notNull()->comment('副标题'),
             'status' => $this->boolean()->defaultValue(false)->comment('状态'),
             'cover' => $this->string()->comment('封面'),
             'comments' => $this->integer()->notNull()->defaultValue(0),
