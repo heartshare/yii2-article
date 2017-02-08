@@ -46,14 +46,25 @@ $this->registerJs('
             </div>
             <div class="text-center mt-10 mb-20">
 
-                <button id="support-button" class="btn btn-success btn-lg mr-5" data-source_id="3" data-source_type="article" data-support_num="56">57 已推荐</button>
-
-                <button id="collect-button" class="btn btn-default btn-lg" data-loading-text="加载中..." data-source_type="article" data-source_id="3">已收藏</button>
+                <button data-target="support-button" class="btn btn-success btn-lg mr-5"
+                        data-source_id="<?= $model->id ?>" data-source_type="article"
+                        data-support_num="<?= $model->supports ?>"><?= $model->supports ?> 推荐
+                </button>
+                <?php if (!Yii::$app->user->isGuest && Yii::$app->user->identity->isCollected(get_class($model), $model->id)): ?>
+                    <button data-target="collect-button" class="btn btn-default btn-lg" data-loading-text="加载中..."
+                            data-source_type="article" data-source_id="<?= $model->id ?>"> 已收藏
+                    </button>
+                <?php else: ?>
+                    <button data-target="collect-button" class="btn btn-default btn-lg" data-loading-text="加载中..."
+                            data-source_type="article" data-source_id="<?= $model->id ?>"> 收藏
+                    </button>
+                <?php endif; ?>
             </div>
+            <!-- 百度分享
             <div class="mb-10">
                 <div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a><a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a><a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a><a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网"></a><a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a></div>
                 <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"1","bdSize":"24"},"share":{},"image":{"viewList":["qzone","tsina","tqq","renren","weixin"],"viewText":"分享到：","viewSize":"24"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
-            </div>
+            </div>-->
         </div>
 
         <div class="widget-answers mt-15">
@@ -67,11 +78,14 @@ $this->registerJs('
     <div class="col-xs-12 col-md-3 side">
         <div class="widget-user">
             <div class="media">
-                <a class="pull-left" href="<?=Url::to(['/user/profile/show','id'=>$model->user_id])?>"><img class="media-object avatar-64" src="<?=$model->user->getAvatar('middle')?>" alt="<?=$model->user->username?>"></a>
+                <a class="pull-left" href="<?= Url::to(['/user/profile/show', 'id' => $model->user_id]) ?>"><img
+                        class="media-object avatar-64" src="<?= $model->user->getAvatar('middle') ?>"
+                        alt="<?= $model->user->username ?>"></a>
                 <div class="media-body ">
-                    <a href="<?=Url::to(['/user/profile/show','id'=>$model->user_id])?>" class="media-heading"><?=$model->user->username?></a>
-                    <p class="text-muted"><?=$model->user->profile->introduction?></p>
-                    <p class="text-muted"><?=$model->user->userData->articles?> 篇文章</p>
+                    <a href="<?= Url::to(['/user/profile/show', 'id' => $model->user_id]) ?>"
+                       class="media-heading"><?= $model->user->username ?></a>
+                    <p class="text-muted"><?= $model->user->profile->introduction ?></p>
+                    <p class="text-muted"><?= $model->user->userData->articles ?> 篇文章</p>
                 </div>
             </div>
         </div>
