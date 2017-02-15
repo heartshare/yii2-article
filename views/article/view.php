@@ -18,7 +18,6 @@ $this->registerJs('
             <h3 class="title"><?= Html::encode($model->title); ?></h3>
             <ul class="taglist-inline">
                 <?php foreach ($model->tags as $tag):
-                    $tags[] = $tag->name;
                     ?>
                     <li class="tagPopup">
                         <a class="tag"

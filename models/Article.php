@@ -73,8 +73,8 @@ class Article extends ActiveRecord
     public function rules()
     {
         return [
-            [['title'], 'required'],
-            [['title', 'cover', 'description'], 'filter', 'filter' => 'trim'],
+            [['title','sub_title'], 'required'],
+            [['title','sub_title', 'cover', 'description'], 'filter', 'filter' => 'trim'],
             ['is_top', 'boolean'],
             ['is_hot', 'boolean'],
             ['is_best', 'boolean'],

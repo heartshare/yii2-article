@@ -2,7 +2,7 @@
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 use yuncms\article\models\Article;
-use yuncms\admin\widgets\UEditor;
+use xutl\ueditor\UEditor;
 
 /* @var \yii\web\View $this */
 /* @var yuncms\article\models\Article $model */
@@ -13,6 +13,8 @@ use yuncms\admin\widgets\UEditor;
 <fieldset>
 
     <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'sub_title')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'status')->inline(true)->radioList([Article::STATUS_ACTIVE => Yii::t('article', 'Active'), Article::STATUS_PENDING => Yii::t('article', 'Pending')]) ?>
 
@@ -28,7 +30,9 @@ use yuncms\admin\widgets\UEditor;
 
     <?= $form->field($model, 'description')->textInput(['maxlength' => true, 'rows' => 5]) ?>
 
-    <?= $form->field($data, 'content')->widget(UEditor::className()) ?>
+    <?= $form->field($data, 'content')->widget(UEditor::className(),[
+
+    ]) ?>
 </fieldset>
 <div class="form-actions">
     <div class="row">
