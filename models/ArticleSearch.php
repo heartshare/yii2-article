@@ -57,6 +57,23 @@ class ArticleSearch extends Article
             return $dataProvider;
         }
 
+        if ($this->created_at !== null) {
+            $date = strtotime($this->created_at);
+            $query->andFilterWhere(['between', 'created_at', $date, $date + 3600 * 24]);
+        }
+
+
+        if ($this->updated_at !== null) {
+            $date = strtotime($this->updated_at);
+            $query->andFilterWhere(['between', 'updated_at', $date, $date + 3600 * 24]);
+        }
+
+        if ($this->published_at !== null) {
+            $date = strtotime($this->published_at);
+            $query->andFilterWhere(['between', 'published_at', $date, $date + 3600 * 24]);
+        }
+
+
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
@@ -69,9 +86,6 @@ class ArticleSearch extends Article
             'is_hot' => $this->is_hot,
             'is_best' => $this->is_best,
             'user_id' => $this->user_id,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
-            'published_at' => $this->published_at,
         ]);
 
         $query->andFilterWhere(['like', 'title', $this->title]);
