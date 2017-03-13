@@ -10,11 +10,13 @@ use Yii;
 use yii\db\ActiveRecord;
 use yuncms\tag\models\Tag;
 use yuncms\system\models\Category;
+use yuncms\user\models\Collection;
 
 /**
  * Class Article
  *
  * @property int $id
+ * @property int $user_id
  * @property string $title
  * @property string $description
  * @property int $status
@@ -168,6 +170,15 @@ class Article extends ActiveRecord
     public function getData()
     {
         return $this->hasOne(ArticleData::className(), ['article_id' => 'id']);
+    }
+
+    /**
+     * Favorite Relation
+     * @return \yii\db\ActiveQueryInterface
+     */
+    public function getCollection()
+    {
+        return $this->hasOne(Collection::className(), ['model_id' => 'id'])->onCondition(['model' => get_class($this)]);
     }
 
     /**
