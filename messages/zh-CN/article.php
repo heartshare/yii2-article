@@ -17,9 +17,11 @@
  * NOTE: this file must be saved in UTF-8 encoding.
  */
 return [
+    'Today, what experience do you need to share?？ Write it down' => '今天，有什么经验需要分享呢？',
+    'Write a article' => '立即撰写',
     'Accepted' => '通过',
-    'Are you sure you want to Accepted this article?' => '你确实要审核通过该文章吗？',
     'Active' => '通过',
+    'Are you sure you want to Accepted this article?' => '你确实要审核通过该文章吗？',
     'Article does not exist.' => '文章不存在',
     'Articles' => '文章',
     'Batch Deletion' => '批量删除',
