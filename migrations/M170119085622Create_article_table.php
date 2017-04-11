@@ -17,6 +17,7 @@ class M170119085622Create_article_table extends Migration
         $this->createTable('{{%article}}', [
             'id' => $this->primaryKey(),
             'key' => $this->string(),
+            'category_id' => $this->string()->comment('栏目ID'),
             'title' => $this->string()->notNull()->comment('标题'),
             'sub_title'=>$this->string(80)->notNull()->comment('副标题'),
             'description' => $this->string()->comment('描述'),
@@ -30,6 +31,7 @@ class M170119085622Create_article_table extends Migration
             'is_hot' => $this->boolean()->notNull()->defaultValue(false)->comment('是否热门'),
             'is_best' => $this->boolean()->notNull()->defaultValue(false)->comment('是否精华'),
             'user_id' => $this->integer()->notNull()->defaultValue(0),
+            'content' => $this->text()->notNull()->comment('内容'),
             'created_at' => $this->integer()->notNull()->defaultValue(0),
             'updated_at' => $this->integer()->notNull()->defaultValue(0),
             'published_at' => $this->integer()->notNull()->defaultValue(0),
