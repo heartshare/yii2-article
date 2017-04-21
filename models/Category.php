@@ -22,7 +22,7 @@ use Overtrue\Pinyin\Pinyin;
  * @property string $pinyin 拼音
  * @property string $letter 首字母
  * @property int $frequency 热度
- * @package common\models
+ * @package yuncms\article\models
  */
 class Category extends ActiveRecord
 {
