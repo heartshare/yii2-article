@@ -1,7 +1,9 @@
 <?php
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
+use yii\helpers\ArrayHelper;
 use yuncms\article\models\Article;
+use yuncms\article\models\Category;
 use xutl\ueditor\UEditor;
 
 /* @var \yii\web\View $this */
@@ -15,6 +17,8 @@ use xutl\ueditor\UEditor;
     <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'sub_title')->textInput(['maxlength' => true]) ?>
+
+    <?=$form->field($model, 'category_id')->dropDownList(ArrayHelper::map(Category::getDropDownList(), 'id', 'name')); ?>
 
     <?= $form->field($model, 'status')->inline(true)->radioList([Article::STATUS_ACTIVE => Yii::t('article', 'Active'), Article::STATUS_PENDING => Yii::t('article', 'Pending')]) ?>
 
@@ -30,7 +34,7 @@ use xutl\ueditor\UEditor;
 
     <?= $form->field($model, 'description')->textInput(['maxlength' => true, 'rows' => 5]) ?>
 
-    <?= $form->field($data, 'content')->widget(UEditor::className(),[
+    <?= $form->field($data, 'content')->widget(UEditor::className(), [
 
     ]) ?>
 </fieldset>

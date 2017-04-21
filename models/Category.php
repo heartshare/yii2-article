@@ -4,12 +4,14 @@
  * @copyright Copyright (c) 2012 TintSoft Technology Co. Ltd.
  * @license http://www.tintsoft.com/license/
  */
+
 namespace yuncms\article\models;
 
 use Yii;
 use yii\db\Query;
 use yii\db\ActiveRecord;
 use yii\behaviors\TimestampBehavior;
+use yii\helpers\ArrayHelper;
 use Overtrue\Pinyin\Pinyin;
 
 /**
@@ -145,5 +147,21 @@ class Category extends ActiveRecord
             $this->letter = strtoupper(substr($this->pinyin, 0, 1));
         }
         return parent::beforeSave($insert);
+    }
+
+    /**
+     * 获取下拉
+     * @return array|ActiveRecord[]
+     */
+    public static function getDropDownList()
+    {
+        $categories = static::find()->select(['id', 'name'])->where(['parent' => null])->with('categories')->orderBy(['sort' => SORT_ASC])->asArray()->all();
+        foreach ($categories as $id => $category) {
+            if (!empty($category['categories'])) {
+                $categories[$id]['id'] = $category['name'];
+                $categories[$id]['name'] = ArrayHelper::map($category['categories'], 'id', 'name');
+            }
+        }
+        return $categories;
     }
 }
