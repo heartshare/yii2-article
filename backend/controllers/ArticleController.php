@@ -68,21 +68,12 @@ class ArticleController extends Controller
     public function actionCreate()
     {
         $model = new Article();
-        $data = new ArticleData();
-        if ($model->load(Yii::$app->request->post()) && $data->load(Yii::$app->request->post())) {
-            $isValid = $model->validate();
-            $isValid = $data->validate() && $isValid;
-            if ($isValid) {
-                $model->save(false);
-                $data->link('article', $model);
-                Yii::$app->getSession()->setFlash('success', Yii::t('app', 'Create success.'));
-                return $this->redirect(['view', 'id' => $model->id]);
-            }
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            Yii::$app->getSession()->setFlash('success', Yii::t('app', 'Create success.'));
+            return $this->redirect(['view', 'id' => $model->id]);
         }
         return $this->render('create', [
             'model' => $model,
-            'data' => $data,
-
         ]);
     }
 
@@ -95,21 +86,12 @@ class ArticleController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-        $data = $model->data;
-        if ($model->load(Yii::$app->request->post()) && $data->load(Yii::$app->request->post())) {
-            $model->save();
-            $isValid = $model->validate();
-            $isValid = $data->validate() && $isValid;
-            if ($isValid) {
-                $model->save(false);
-                $data->save(false);
-                Yii::$app->getSession()->setFlash('success', Yii::t('app', 'Update success.'));
-                return $this->redirect(['view', 'id' => $model->id]);
-            }
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            Yii::$app->getSession()->setFlash('success', Yii::t('app', 'Update success.'));
+            return $this->redirect(['view', 'id' => $model->id]);
         }
         return $this->render('update', [
             'model' => $model,
-            'data' => $data,
         ]);
     }
 
@@ -152,7 +134,7 @@ class ArticleController extends Controller
                 $model->delete();
             }
             Yii::$app->getSession()->setFlash('success', Yii::t('app', 'Delete success.'));
-        }else {
+        } else {
             Yii::$app->getSession()->setFlash('success', Yii::t('app', 'Delete failed.'));
         }
 

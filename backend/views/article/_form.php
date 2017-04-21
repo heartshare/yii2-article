@@ -8,7 +8,6 @@ use xutl\ueditor\UEditor;
 
 /* @var \yii\web\View $this */
 /* @var yuncms\article\models\Article $model */
-/* @var yuncms\article\models\ArticleData $data */
 /* @var ActiveForm $form */
 ?>
 <?php $form = ActiveForm::begin(['layout' => 'horizontal']); ?>
@@ -34,7 +33,7 @@ use xutl\ueditor\UEditor;
 
     <?= $form->field($model, 'description')->textInput(['maxlength' => true, 'rows' => 5]) ?>
 
-    <?= $form->field($data, 'content')->widget(UEditor::className(), [
+    <?= $form->field($model, 'content')->widget(UEditor::className(), [
 
     ]) ?>
 </fieldset>

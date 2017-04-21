@@ -15,7 +15,7 @@ use yii\helpers\Html;
 <div class="summary">
     <h2 class="title"><a href="<?= Url::to(['/article/article/view', 'key' => $model->key]); ?>"
                          target="_blank"><?= Html::encode($model->title) ?></a></h2>
-    <p class="excerpt wordbreak"><?= mb_substr(strip_tags($model->data->content), 0, 100) ?></p>
+    <p class="excerpt wordbreak"><?= mb_substr(strip_tags($model->content), 0, 100) ?></p>
     <ul class="author list-inline mt-20">
         <li class="pull-right" title="<?= $model->collections ?> <?=Yii::t('article', 'Collect');?>">
             <span class="glyphicon glyphicon-bookmark"></span> <?= $model->collections ?>

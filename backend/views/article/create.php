@@ -5,7 +5,6 @@ use yuncms\admin\widgets\Jarvis;
 
 /* @var $this yii\web\View */
 /* @var yuncms\article\models\Article $model  */
-/* @var yuncms\article\models\ArticleData $data */
 
 $this->title = Yii::t('article', 'Create Article');
 $this->params['breadcrumbs'][] = ['label' => Yii::t('article', 'Manage Article'), 'url' => ['index']];
@@ -32,7 +31,6 @@ $this->params['breadcrumbs'][] = $this->title;
 
             <?= $this->render('_form', [
                 'model' => $model,
-                'data' => $data,
             ]) ?>
             <?php Jarvis::end(); ?>
         </article>

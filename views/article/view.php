@@ -30,7 +30,7 @@ $this->registerJs('
                     <?= $model->description; ?>
                 </div>
                 <div class="text-fmt">
-                    <?= $model->data->content; ?>
+                    <?= $model->content; ?>
                 </div>
                 <div class="post-opt mt-30">
                     <ul class="list-inline text-muted">

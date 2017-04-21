@@ -55,7 +55,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'status',
                     'cover',
                     'description',
-                    'data.content:html',
+                    'content:html',
                     'comments',
                     'views',
                     'is_top:boolean',

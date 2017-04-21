@@ -19,9 +19,9 @@ use yuncms\user\models\Collection;
  * @property int $user_id
  * @property string $title
  * @property string $description
+ * @property string $content
  * @property int $status
  *
- * @property ArticleData $data
  * @package yuncms\article\models
  */
 class Article extends ActiveRecord
@@ -53,13 +53,6 @@ class Article extends ActiveRecord
                 'tagValueAttribute' => 'id',
                 'tagFrequencyAttribute' => 'frequency',
             ],
-            'category' => [
-                'class' => 'yuncms\system\behaviors\CategoryBehavior',
-                'categoryValuesAsArray' => true,
-                'categoryRelation' => 'categories',
-                'categoryValueAttribute' => 'id',
-                'categoryFrequencyAttribute' => 'frequency',
-            ],
             'blameable' => [
                 'class' => 'yii\behaviors\BlameableBehavior',
                 'attributes' => [
@@ -75,7 +68,7 @@ class Article extends ActiveRecord
     public function rules()
     {
         return [
-            [['title','sub_title'], 'required'],
+            [['title','sub_title','category_id','content'], 'required'],
             [['title','sub_title', 'cover', 'description'], 'filter', 'filter' => 'trim'],
             ['is_top', 'boolean'],
             ['is_hot', 'boolean'],
@@ -140,9 +133,9 @@ class Article extends ActiveRecord
      * Category Relation
      * @return \yii\db\ActiveQuery
      */
-    public function getCategories()
+    public function getCategory()
     {
-        return $this->hasMany(Category::className(), ['id' => 'category_id'])->viaTable('{{%article_category}}', ['article_id' => 'id']);
+        return $this->hasOne(Category::className(), ['id' => 'category_id']);
     }
 
     /**
@@ -161,15 +154,6 @@ class Article extends ActiveRecord
     public function getUser()
     {
         return $this->hasOne(Yii::$app->user->identityClass, ['id' => 'user_id']);
-    }
-
-    /**
-     * Data Relation
-     * @return \yii\db\ActiveQuery
-     */
-    public function getData()
-    {
-        return $this->hasOne(ArticleData::className(), ['article_id' => 'id']);
     }
 
     /**
@@ -238,7 +222,6 @@ class Article extends ActiveRecord
     public function afterDelete()
     {
         $this->user->userData->updateCounters(['articles' => -1]);
-        ArticleData::deleteAll(['article_id' => $this->id]);
         parent::afterDelete();
     }
 }
