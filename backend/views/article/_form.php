@@ -1,10 +1,10 @@
 <?php
 use yii\helpers\Html;
-use yii\bootstrap\ActiveForm;
 use yii\helpers\ArrayHelper;
 use yuncms\article\models\Article;
 use yuncms\article\models\Category;
 use xutl\ueditor\UEditor;
+use xutl\inspinia\ActiveForm;
 
 /* @var \yii\web\View $this */
 /* @var yuncms\article\models\Article $model */

@@ -1,29 +1,50 @@
 <?php
 
 use yii\helpers\Html;
-use yuncms\admin\widgets\ActiveForm;
+use xutl\inspinia\ActiveForm;
 
 /* @var $this yii\web\View */
 /* @var $model yuncms\article\models\ArticleSearch */
-/* @var $form yuncms\admin\widgets\ActiveForm */
+/* @var $form ActiveForm */
 ?>
 
-<div class="article-search">
+<div class="article-search  pull-right">
 
     <?php $form = ActiveForm::begin([
+        'layout' => 'inline',
         'action' => ['index'],
         'method' => 'get',
     ]); ?>
 
-    <?= $form->field($model, 'id') ?>
+    <?= $form->field($model, 'id', [
+        'inputOptions' => [
+            'placeholder' => $model->getAttributeLabel('id'),
+        ],
+    ]) ?>
 
-    <?= $form->field($model, 'title') ?>
+    <?= $form->field($model, 'title', [
+        'inputOptions' => [
+            'placeholder' => $model->getAttributeLabel('title'),
+        ],
+    ]) ?>
 
-    <?= $form->field($model, 'status') ?>
+<!--    --><?//= $form->field($model, 'status', [
+//        'inputOptions' => [
+//            'placeholder' => $model->getAttributeLabel('status'),
+//        ],
+//    ]) ?>
 
-    <?= $form->field($model, 'cover') ?>
+    <?= $form->field($model, 'cover', [
+        'inputOptions' => [
+            'placeholder' => $model->getAttributeLabel('cover'),
+        ],
+    ]) ?>
 
-    <?= $form->field($model, 'comments') ?>
+    <?= $form->field($model, 'comments', [
+        'inputOptions' => [
+            'placeholder' => $model->getAttributeLabel('comments'),
+        ],
+    ]) ?>
 
     <?php // echo $form->field($model, 'views') ?>
 

@@ -2,8 +2,10 @@
 use yii\web\View;
 use yii\helpers\Html;
 use yii\grid\GridView;
-use yuncms\admin\widgets\Jarvis;
 use yii\widgets\Pjax;
+use xutl\inspinia\Box;
+use xutl\inspinia\Toolbar;
+use xutl\inspinia\Alert;
 
 /* @var $this yii\web\View */
 /* @var $searchModel yuncms\article\models\ArticleSearch */
@@ -13,7 +15,7 @@ $this->title = Yii::t('article', 'Manage Article');
 $this->params['breadcrumbs'][] = $this->title;
 $this->registerJs("
 jQuery(\"#batch_deletion\").on(\"click\", function () {
-    yii.confirm('".Yii::t('app', 'Are you sure you want to delete this item?')."',function(){
+    yii.confirm('" . Yii::t('app', 'Are you sure you want to delete this item?') . "',function(){
         var ids = jQuery('#gridview').yiiGridView(\"getSelectedRows\");
         jQuery.post(\"batch-delete\",{ids:ids});
     });
@@ -21,36 +23,42 @@ jQuery(\"#batch_deletion\").on(\"click\", function () {
 ", View::POS_LOAD);
 
 ?>
-<section id="widget-grid">
+<div class="wrapper wrapper-content animated fadeInRight">
     <div class="row">
-        <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12 article-index">
+        <div class="col-lg-12 article-index">
+            <?= Alert::widget() ?>
             <?php Pjax::begin(); ?>
-            <?php Jarvis::begin([
-                'noPadding' => true,
-                'editbutton' => false,
-                'deletebutton' => false,
+            <?php Box::begin([
                 'header' => Html::encode($this->title),
-                'bodyToolbarActions' => [
-                    [
-                        'label' => Yii::t('article', 'Manage Article'),
-                        'url' => ['/article/article/index'],
-                    ],
-                    [
-                        'label' => Yii::t('article', 'Create Article'),
-                        'url' => ['/article/article/create'],
-                    ],
-                    [
-                        'options' => ['id' => 'batch_deletion','class'=>'btn btn-sm btn-danger'],
-                        'label' => Yii::t('article', 'Batch Deletion'),
-                        'url' => 'javascript:void(0);',
-                    ]
-                ]
             ]); ?>
-            <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+            <div class="row">
+                <div class="col-sm-4 m-b-xs">
+                    <?= Toolbar::widget(['items' => [
+                        [
+                            'label' => Yii::t('article', 'Manage Article'),
+                            'url' => ['/article/article/index'],
+                        ],
+                        [
+                            'label' => Yii::t('article', 'Create Article'),
+                            'url' => ['/article/article/create'],
+                        ],
+                        [
+                            'options' => ['id' => 'batch_deletion', 'class' => 'btn btn-sm btn-danger'],
+                            'label' => Yii::t('article', 'Batch Deletion'),
+                            'url' => 'javascript:void(0);',
+                        ]
+                    ]]); ?>
+                </div>
+                <div class="col-sm-8 m-b-xs">
+                    <?php echo $this->render('_search', ['model' => $searchModel]); ?>
+                </div>
+            </div>
+
             <?= GridView::widget([
                 'options' => ['id' => 'gridview'],
+                'layout' => "{items}\n{summary}\n{pager}",
                 'dataProvider' => $dataProvider,
-                'filterModel' => $searchModel,
+                //'filterModel' => $searchModel,
                 'columns' => [
                     [
                         'class' => 'yii\grid\CheckboxColumn',
@@ -79,7 +87,7 @@ jQuery(\"#batch_deletion\").on(\"click\", function () {
                                     'data-confirm' => Yii::t('article', 'Are you sure you want to Accepted this article?'),
                                 ]);
                             } else {
-                                return Yii::t('article', 'Accepted');
+                                return Html::tag('span',Yii::t('article', 'Accepted'),['class'=>'badge badge-primary']);
                             }
                         },
                         'format' => 'raw',
@@ -89,8 +97,8 @@ jQuery(\"#batch_deletion\").on(\"click\", function () {
                     ['class' => 'yii\grid\ActionColumn', 'header' => Yii::t('app', 'Operation'),],
                 ],
             ]); ?>
-            <?php Jarvis::end(); ?>
+            <?php Box::end(); ?>
             <?php Pjax::end(); ?>
-        </article>
+        </div>
     </div>
-</section>
+</div>
