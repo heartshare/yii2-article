@@ -21,9 +21,8 @@ use xutl\inspinia\ActiveForm;
 <div class="hr-line-dashed"></div>
 <?= $form->field($model, 'status')->inline(true)->radioList([Article::STATUS_ACTIVE => Yii::t('article', 'Active'), Article::STATUS_PENDING => Yii::t('article', 'Pending')]) ?>
 <div class="hr-line-dashed"></div>
-<?= $form->field($model, 'cover')->textInput(['maxlength' => true]) ?>
-<div class="hr-line-dashed"></div>
-<?= $form->field($model, 'cover')->fileInput(['style' => 'max-width:200px;max-height:200px']); ?>
+<?php //echo $form->field($model, 'cover')->fileInput(['style' => 'max-width:200px;max-height:200px']); ?>
+<?= $form->field($model, 'cover')->ajaxUploadInput(['style' => 'max-width:200px;max-height:200px']); ?>
 <div class="hr-line-dashed"></div>
 <?= $form->field($model, 'is_top')->inline(true)->radioList([true => Yii::t('app', 'Yes'), false => Yii::t('app', 'No')]) ?>
 <div class="hr-line-dashed"></div>

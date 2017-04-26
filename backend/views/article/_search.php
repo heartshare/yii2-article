@@ -28,17 +28,9 @@ use xutl\inspinia\ActiveForm;
         ],
     ]) ?>
 
-<!--    --><?//= $form->field($model, 'status', [
-//        'inputOptions' => [
-//            'placeholder' => $model->getAttributeLabel('status'),
-//        ],
-//    ]) ?>
+    <?php //echo $form->field($model, 'status', ['inputOptions' => ['placeholder' => $model->getAttributeLabel('status'),],]) ?>
 
-    <?= $form->field($model, 'cover', [
-        'inputOptions' => [
-            'placeholder' => $model->getAttributeLabel('cover'),
-        ],
-    ]) ?>
+    <?php //echo $form->field($model, 'cover', ['inputOptions' => ['placeholder' => $model->getAttributeLabel('cover'),],]) ?>
 
     <?= $form->field($model, 'comments', [
         'inputOptions' => [
