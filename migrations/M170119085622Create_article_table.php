@@ -28,7 +28,6 @@ class M170119085622Create_article_table extends Migration
             'collections' => $this->integer()->notNull()->defaultValue(0),
             'views' => $this->integer()->notNull()->defaultValue(0),
             'is_top' => $this->boolean()->notNull()->defaultValue(false)->comment('是否置顶'),
-            'is_hot' => $this->boolean()->notNull()->defaultValue(false)->comment('是否热门'),
             'is_best' => $this->boolean()->notNull()->defaultValue(false)->comment('是否精华'),
             'user_id' => $this->integer()->notNull()->defaultValue(0),
             'content' => $this->text()->notNull()->comment('内容'),

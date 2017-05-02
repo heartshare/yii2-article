@@ -50,7 +50,7 @@ class ArticleQuery extends ActiveQuery
      */
     public function hot()
     {
-        return $this->active()->andWhere(['is_hot' => true])->orderBy(['(views / pow((((UNIX_TIMESTAMP(NOW()) - created_at) / 3600) + 2),1.8) )' => SORT_DESC]);
+        return $this->active()->orderBy(['(views / pow((((UNIX_TIMESTAMP(NOW()) - created_at) / 3600) + 2),1.8) )' => SORT_DESC]);
     }
 
     /**

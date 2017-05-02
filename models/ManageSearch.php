@@ -17,8 +17,8 @@ class ManageSearch extends Article
     public function rules()
     {
         return [
-            [['id', 'status', 'comments', 'supports', 'collections', 'views', 'is_top', 'is_hot', 'is_best', 'created_at', 'updated_at', 'published_at'], 'integer'],
-            [['key', 'category_id', 'title', 'sub_title', 'description', 'cover', 'content'], 'safe'],
+            [['status', 'comments', 'supports', 'collections', 'views', 'is_top', 'is_hot', 'is_best'], 'integer'],
+            [['key', 'category_id', 'title', 'sub_title'], 'safe'],
         ];
     }
 
@@ -58,28 +58,20 @@ class ManageSearch extends Article
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'id' => $this->id,
+
             'status' => $this->status,
             'comments' => $this->comments,
             'supports' => $this->supports,
             'collections' => $this->collections,
             'views' => $this->views,
             'is_top' => $this->is_top,
-            'is_hot' => $this->is_hot,
             'is_best' => $this->is_best,
-            'user_id' => $this->user_id,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
-            'published_at' => $this->published_at,
         ]);
 
         $query->andFilterWhere(['like', 'uuid', $this->uuid])
             ->andFilterWhere(['like', 'category_id', $this->category_id])
             ->andFilterWhere(['like', 'title', $this->title])
-            ->andFilterWhere(['like', 'sub_title', $this->sub_title])
-            ->andFilterWhere(['like', 'description', $this->description])
-            ->andFilterWhere(['like', 'cover', $this->cover])
-            ->andFilterWhere(['like', 'content', $this->content]);
+            ->andFilterWhere(['like', 'sub_title', $this->sub_title]);
 
         return $dataProvider;
     }

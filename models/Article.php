@@ -84,10 +84,8 @@ class Article extends ActiveRecord
             [['title', 'sub_title', 'category_id', 'content'], 'required'],
             [['title', 'sub_title', 'cover', 'description'], 'filter', 'filter' => 'trim'],
             ['is_top', 'boolean'],
-            ['is_hot', 'boolean'],
             ['is_best', 'boolean'],
             ['is_top', 'default', 'value' => false],
-            ['is_hot', 'default', 'value' => false],
             ['is_best', 'default', 'value' => false],
             ['status', 'default', 'value' => self::STATUS_PENDING],
             ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_PENDING]],
@@ -111,7 +109,6 @@ class Article extends ActiveRecord
             'collections' => Yii::t('article', 'Collections'),
             'views' => Yii::t('article', 'Views'),
             'is_top' => Yii::t('article', 'Is Top'),
-            'is_hot' => Yii::t('article', 'Is Hot'),
             'is_best' => Yii::t('article', 'Is Best'),
             'content' => Yii::t('article', 'Content'),
             'created_at' => Yii::t('article', 'Created At'),
@@ -180,6 +177,15 @@ class Article extends ActiveRecord
     }
 
     /**
+     * 审核通过
+     * @return bool
+     */
+    public function setActive()
+    {
+        return (bool)$this->updateAttributes(['status' => self::STATUS_ACTIVE, 'published_at' => time()]);
+    }
+
+    /**
      * {@inheritdoc}
      */
     public static function tableName()
@@ -206,9 +212,6 @@ class Article extends ActiveRecord
             $this->updateAttributes(['key' => $this->generateKey()]);
             /* 用户文章数+1 */
             Yii::$app->user->identity->userData->updateCounters(['articles' => 1]);
-        }
-        if ($this->isActive()) {
-            $this->updateAttributes(['published_at' => time()]);
         }
         return parent::afterSave($insert, $changedAttributes);
     }

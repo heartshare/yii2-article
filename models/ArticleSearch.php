@@ -18,7 +18,7 @@ class ArticleSearch extends Article
     public function rules()
     {
         return [
-            [['id', 'status', 'comments', 'supports', 'collections', 'views', 'is_top', 'is_hot', 'is_best', 'user_id', 'created_at', 'updated_at', 'published_at'], 'integer'],
+            [['id', 'status', 'comments', 'supports', 'collections', 'views', 'is_top', 'is_best', 'user_id', 'created_at', 'updated_at', 'published_at'], 'integer'],
             [['title'], 'safe'],
         ];
     }
@@ -83,7 +83,6 @@ class ArticleSearch extends Article
             'supports' => $this->supports,
             'collections' => $this->collections,
             'is_top' => $this->is_top,
-            'is_hot' => $this->is_hot,
             'is_best' => $this->is_best,
             'user_id' => $this->user_id,
         ]);
