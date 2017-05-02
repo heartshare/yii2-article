@@ -21,7 +21,7 @@ $this->registerJs('
                     ?>
                     <li class="tagPopup">
                         <a class="tag"
-                           href="<?= Url::to(['/question/question/tag', 'tag' => $tag->name]) ?>"><?= Html::encode($tag->name) ?></a>
+                           href="<?= Url::to(['/article/article/tag', 'tag' => $tag->name]) ?>"><?= Html::encode($tag->name) ?></a>
                     </li>
                 <?php endforeach; ?>
             </ul>

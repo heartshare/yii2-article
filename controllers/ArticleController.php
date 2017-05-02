@@ -70,12 +70,11 @@ class ArticleController extends Controller
         }
     }
 
-    public function actionView($key)
+    public function actionView($uuid)
     {
-        $model = $this->findModel($key);
+        $model = $this->findModel($uuid);
         if ($model && ($model->isActive() || $model->isAuthor())) {
             if (!$model->isAuthor()) $model->updateCounters(['views' => 1]);
-
             return $this->render('view', [
                 'model' => $model,
             ]);
@@ -89,14 +88,14 @@ class ArticleController extends Controller
      * Finds the Article model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      *
-     * @param string $key
+     * @param string $uuid
      *
      * @return Article the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($key)
+    protected function findModel($uuid)
     {
-        if (($model = Article::findOne(['key' => $key])) != null) {
+        if (($model = Article::findOne(['uuid' => $uuid])) != null) {
             return $model;
         }
         throw new NotFoundHttpException('The requested page does not exist');

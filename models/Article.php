@@ -4,6 +4,7 @@
  * @copyright Copyright (c) 2012 TintSoft Technology Co. Ltd.
  * @license http://www.tintsoft.com/license/
  */
+
 namespace yuncms\article\models;
 
 use Yii;
@@ -16,11 +17,23 @@ use yuncms\user\models\Collection;
  * Class Article
  *
  * @property int $id
+ * @property string $uuid
  * @property int $user_id
  * @property string $title
+ * @property string $sub_title
  * @property string $description
  * @property string $content
  * @property int $status
+ * @property int $comments
+ * @property int $supports
+ * @property int $collections
+ * @property int $views
+ *
+ * @property int $created_at
+ * @property int $updated_at
+ * @property int $published_at
+ *
+ * @property int $category_id
  *
  * @package yuncms\article\models
  */
@@ -68,8 +81,8 @@ class Article extends ActiveRecord
     public function rules()
     {
         return [
-            [['title','sub_title','category_id','content'], 'required'],
-            [['title','sub_title', 'cover', 'description'], 'filter', 'filter' => 'trim'],
+            [['title', 'sub_title', 'category_id', 'content'], 'required'],
+            [['title', 'sub_title', 'cover', 'description'], 'filter', 'filter' => 'trim'],
             ['is_top', 'boolean'],
             ['is_hot', 'boolean'],
             ['is_best', 'boolean'],
@@ -90,6 +103,7 @@ class Article extends ActiveRecord
             'id' => Yii::t('app', 'ID'),
             'title' => Yii::t('article', 'Title'),
             'description' => Yii::t('article', 'Description'),
+            'category_id' => Yii::t('article', 'Category'),
             'cover' => Yii::t('article', 'Cover'),
             'status' => Yii::t('article', 'Status'),
             'comments' => Yii::t('article', 'Comments'),

@@ -16,7 +16,7 @@ class M170119085622Create_article_table extends Migration
 
         $this->createTable('{{%article}}', [
             'id' => $this->primaryKey(),
-            'key' => $this->string(),
+            'uuid' => $this->string(),
             'category_id' => $this->string()->comment('栏目ID'),
             'title' => $this->string()->notNull()->comment('标题'),
             'sub_title'=>$this->string(80)->notNull()->comment('副标题'),
@@ -38,7 +38,7 @@ class M170119085622Create_article_table extends Migration
         ], $tableOptions);
         $this->createIndex('index_published_at', '{{%article}}', 'published_at');
 
-        $this->createIndex('index_key', '{{%article}}', 'key');
+        $this->createIndex('index_uuid', '{{%article}}', 'uuid');
     }
 
     public function down()
