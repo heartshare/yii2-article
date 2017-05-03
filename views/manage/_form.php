@@ -5,7 +5,6 @@ use yii\helpers\ArrayHelper;
 use yii\bootstrap\ActiveForm;
 use yuncms\article\models\Category;
 use xutl\ueditor\UEditor;
-use xutl\select2\Select2;
 use xutl\bootstrap\filestyle\FilestyleAsset;
 
 /* @var $this yii\web\View */
@@ -55,8 +54,6 @@ FilestyleAsset::register($this);
     <?= $form->field($model, 'cover')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'is_top')->textInput() ?>
-
-    <?= $form->field($model, 'is_hot')->textInput() ?>
 
     <?= $form->field($model, 'is_best')->textInput() ?>
 

@@ -17,8 +17,8 @@ class ManageSearch extends Article
     public function rules()
     {
         return [
-            [['status', 'comments', 'supports', 'collections', 'views', 'is_top', 'is_hot', 'is_best'], 'integer'],
-            [['key', 'category_id', 'title', 'sub_title'], 'safe'],
+            [['status', 'comments', 'supports', 'collections', 'views', 'is_top', 'is_best'], 'integer'],
+            [['uuid', 'category_id', 'title', 'sub_title'], 'safe'],
         ];
     }
 
