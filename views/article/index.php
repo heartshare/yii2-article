@@ -11,12 +11,14 @@ use yii\widgets\ListView;
 $this->title = Yii::t('article', 'Articles');
 //$this->params['breadcrumbs'][] = $this->title;
 ?>
-<h4>
-    <i class="glyphicon glyphicon-tags"></i> <?= Html::encode($this->title) ?><br>
-    <small>标签不仅能组织和归类你的内容，还能关联相似的内容。正确的使用标签可让你更容易的找到需要的源代码。</small>
-</h4>
 <div class="row">
-    <div class="col-xs-12 col-md-9 main">
+    <div class="col-md-12 col-xs-12 col-md-9 main">
+        <div class="page-header">
+            <h4>
+                <i class="glyphicon glyphicon-tags"></i> <?= Html::encode($this->title) ?>
+                <small><?= Yii::t('app', 'Topics can not only organize and categorize your content, but also link similar content. Correct use of the topic will make your problem more people find and solve.') ?></small>
+            </h4>
+        </div>
         <?= ListView::widget([
             'options' => [
                 'class' => 'stream-list blog-stream'
