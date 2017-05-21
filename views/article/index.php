@@ -3,13 +3,13 @@ use yii\helpers\Url;
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\widgets\ListView;
-
+use yuncms\article\assets\ArticleAsset;
 /*
  * @var yii\web\View $this
  */
-
 $this->title = Yii::t('article', 'Articles');
 //$this->params['breadcrumbs'][] = $this->title;
+ArticleAsset::register($this);
 ?>
 <div class="row">
     <div class="col-md-12 col-xs-12 col-md-9 main">
@@ -20,14 +20,14 @@ $this->title = Yii::t('article', 'Articles');
         </div>
         <?= ListView::widget([
             'options' => [
-                'class' => 'stream-list blog-stream'
+                'class' => 'article-stream'
             ],
-            'itemOptions' => ['tag' => 'section', 'class' => 'stream-list-item clearfix'],
+            'itemOptions' => ['tag' => 'section', 'class' => 'article-list-item clearfix'],
             'layout' => '{items} <div class="text-center">{pager}</div>',
             'pager' => [
                 'maxButtonCount' => 10,
-                'nextPageLabel' => Yii::t('app', 'Next page'),
-                'prevPageLabel' => Yii::t('app', 'Previous page'),
+                'nextPageLabel' => Yii::t('article', 'Next page'),
+                'prevPageLabel' => Yii::t('article', 'Previous page'),
             ],
             'dataProvider' => $dataProvider,
             'itemView' => '_item'
