@@ -15,23 +15,11 @@ use xutl\fileupload\SingleUpload;
 <div class="article-form">
 
     <?php $form = ActiveForm::begin([
-        'options' => [
-            'enctype' => 'multipart/form-data',
-        ],
         'layout' => 'horizontal',
-        'fieldConfig' => [
-            'horizontalCssClasses' => [
-                'label' => 'col-sm-2',
-                'wrapper' => 'col-sm-10',
-                'error' => '',
-                'hint' => '',
-            ]
-        ]
     ]); ?>
 
     <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'sub_title')->textInput(['maxlength' => true]) ?>
 
     <?php
     $categories = Category::find()->select(['id', 'name', 'pinyin'])->where(['parent' => null])->with('categories')->orderBy(['sort' => SORT_ASC])->asArray()->all();
@@ -45,7 +33,7 @@ use xutl\fileupload\SingleUpload;
         }
     } ?>
     <?= $form->field($model, 'category_id')->label($model->getAttributeLabel('category_id'))->dropDownList(ArrayHelper::map($categories, 'name', 'categories'), [
-        'prompt' => Yii::t('a', 'Please select')
+        'prompt' => Yii::t('article', 'Please select')
     ]) ?>
 
     <?= $form->field($model, 'description')->textInput(['maxlength' => true]) ?>

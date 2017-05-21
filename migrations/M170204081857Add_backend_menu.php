@@ -19,7 +19,6 @@ class M170204081857Add_backend_menu extends Migration
 
         $id = (new \yii\db\Query())->select(['id'])->from('{{%admin_menu}}')->where(['name' => '文章管理', 'parent' => 8,])->scalar($this->getDb());
         $this->batchInsert('{{%admin_menu}}', ['name', 'parent', 'route', 'visible', 'sort'], [
-
             ['文章查看', $id, '/article/article/view', 0, NULL],
             ['创建文章', $id, '/article/article/create', 0, NULL],
             ['更新文章', $id, '/article/article/update', 0, NULL],

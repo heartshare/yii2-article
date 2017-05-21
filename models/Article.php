@@ -81,11 +81,11 @@ class Article extends ActiveRecord
     public function rules()
     {
         return [
-            [['title', 'sub_title', 'category_id', 'content'], 'required'],
+            [['title', 'category_id', 'content'], 'required'],
             [['title', 'sub_title', 'cover', 'description'], 'filter', 'filter' => 'trim'],
             ['is_top', 'boolean'],
             ['is_best', 'boolean'],
-            ['is_best', 'default', 'value' => false],
+            [['is_best', 'is_top'], 'default', 'value' => false],
             ['status', 'default', 'value' => self::STATUS_PENDING],
             ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_PENDING]],
         ];
@@ -99,6 +99,7 @@ class Article extends ActiveRecord
         return [
             'id' => Yii::t('app', 'ID'),
             'title' => Yii::t('article', 'Title'),
+            'sub_title' => Yii::t('article', 'Sub Title'),
             'description' => Yii::t('article', 'Description'),
             'category_id' => Yii::t('article', 'Category'),
             'cover' => Yii::t('article', 'Cover'),
