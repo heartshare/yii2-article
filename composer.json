@@ -10,6 +10,7 @@
   "require": {
     "yiisoft/yii2": "~2.0",
     "overtrue/pinyin":"~3.0",
+    "xutl/yii2-fileupload-widget": "~1.0",
     "yuncms/yii2-user": "~1.0"
   },
   "autoload": {

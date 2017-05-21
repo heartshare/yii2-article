@@ -5,12 +5,11 @@ use yii\helpers\ArrayHelper;
 use yii\bootstrap\ActiveForm;
 use yuncms\article\models\Category;
 use xutl\ueditor\UEditor;
-use xutl\bootstrap\filestyle\FilestyleAsset;
+use xutl\fileupload\SingleUpload;
 
 /* @var $this yii\web\View */
 /* @var $model yuncms\article\models\Article */
 /* @var $form yii\widgets\ActiveForm */
-FilestyleAsset::register($this);
 ?>
 
 <div class="article-form">
@@ -51,11 +50,9 @@ FilestyleAsset::register($this);
 
     <?= $form->field($model, 'description')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'cover')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'is_top')->textInput() ?>
-
-    <?= $form->field($model, 'is_best')->textInput() ?>
+    <?= $form->field($model, 'cover')->widget(SingleUpload::className(), [
+        'onlyImage' => true,
+    ]) ?>
 
     <?= $form->field($model, 'content')->widget(UEditor::className()) ?>
 

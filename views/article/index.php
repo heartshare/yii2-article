@@ -16,7 +16,6 @@ $this->title = Yii::t('article', 'Articles');
         <div class="page-header">
             <h4>
                 <i class="glyphicon glyphicon-tags"></i> <?= Html::encode($this->title) ?>
-                <small><?= Yii::t('app', 'Topics can not only organize and categorize your content, but also link similar content. Correct use of the topic will make your problem more people find and solve.') ?></small>
             </h4>
         </div>
         <?= ListView::widget([

@@ -39,6 +39,10 @@ jQuery(\"#batch_deletion\").on(\"click\", function () {
                             'url' => ['/article/article/index'],
                         ],
                         [
+                            'label' => Yii::t('article', 'Manage Category'),
+                            'url' => ['/article/category/index'],
+                        ],
+                        [
                             'label' => Yii::t('article', 'Create Article'),
                             'url' => ['/article/article/create'],
                         ],
@@ -73,7 +77,6 @@ jQuery(\"#batch_deletion\").on(\"click\", function () {
                     'collections',
                     'views',
                     'is_top:boolean',
-                    'is_hot:boolean',
                     'is_best:boolean',
                     // 'description',
                     'user.username',

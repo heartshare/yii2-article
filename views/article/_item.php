@@ -6,14 +6,14 @@ use yii\helpers\Html;
 
 <?php if ($model->cover): ?>
     <div class="blog-rank hidden-xs">
-        <a href="<?= Url::to(['/article/article/view', 'key' => $model->key]); ?>" target="_blank">
+        <a href="<?= Url::to(['/article/article/view', 'uuid' => $model->uuid]); ?>" target="_blank">
             <img style="width: 200px;height:120px;"
                  src="<?=$model->cover?>">
         </a>
     </div>
 <?php endif; ?>
 <div class="summary">
-    <h2 class="title"><a href="<?= Url::to(['/article/article/view', 'key' => $model->key]); ?>"
+    <h2 class="title"><a href="<?= Url::to(['/article/article/view', 'uuid' => $model->uuid]); ?>"
                          target="_blank"><?= Html::encode($model->title) ?></a></h2>
     <p class="excerpt wordbreak"><?= mb_substr(strip_tags($model->content), 0, 100) ?></p>
     <ul class="author list-inline mt-20">

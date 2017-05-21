@@ -85,7 +85,6 @@ class Article extends ActiveRecord
             [['title', 'sub_title', 'cover', 'description'], 'filter', 'filter' => 'trim'],
             ['is_top', 'boolean'],
             ['is_best', 'boolean'],
-            ['is_top', 'default', 'value' => false],
             ['is_best', 'default', 'value' => false],
             ['status', 'default', 'value' => self::STATUS_PENDING],
             ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_PENDING]],
@@ -209,7 +208,7 @@ class Article extends ActiveRecord
     public function afterSave($insert, $changedAttributes)
     {
         if ($insert) {
-            $this->updateAttributes(['key' => $this->generateKey()]);
+            $this->updateAttributes(['uuid' => $this->generateKey()]);
             /* 用户文章数+1 */
             Yii::$app->user->identity->userData->updateCounters(['articles' => 1]);
         }

@@ -72,7 +72,7 @@ class Category extends ActiveRecord
                 return !$this->isNewRecord;
             }],
             [['sort', 'frequency'], 'integer'],
-            ['sort', 'default', 'value' => 0]
+            [['sort', 'frequency'], 'default', 'value' => 0]
         ];
     }
 

@@ -6,7 +6,7 @@ use yii\helpers\Html;
  * @var \yuncms\tag\models\Tag $tags
  */
 ?>
-<div class="widget-box mt30">
+<div class="widget-box mt-30">
     <h2 class="widget-box-title"><?= Yii::t('article', 'Hot list') ?>
         <a href="<?= Url::to(['/article/article/index']) ?>" title="<?= Yii::t('article', 'More') ?>">»</a>
     </h2>
@@ -14,7 +14,7 @@ use yii\helpers\Html;
         <?php
         foreach ($models as $model):?>
             <li class="text-muted">
-                <a href="<?= Url::to(['/article/article/view', 'key' => $model->key]) ?>"
+                <a href="<?= Url::to(['/article/article/view', 'uuid' => $model->uuid]) ?>"
                    class="ellipsis"><?= Html::encode($model->title) ?></a>
                 <span class="text-muted pull-right"><?= $model->views ?></span>
             </li>

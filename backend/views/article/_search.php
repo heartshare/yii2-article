@@ -32,11 +32,7 @@ use xutl\inspinia\ActiveForm;
 
     <?php //echo $form->field($model, 'cover', ['inputOptions' => ['placeholder' => $model->getAttributeLabel('cover'),],]) ?>
 
-    <?= $form->field($model, 'comments', [
-        'inputOptions' => [
-            'placeholder' => $model->getAttributeLabel('comments'),
-        ],
-    ]) ?>
+    <?php //echo  $form->field($model, 'comments', ['inputOptions' => ['placeholder' => $model->getAttributeLabel('comments'),],]) ?>
 
     <?php // echo $form->field($model, 'views') ?>
 
@@ -57,8 +53,8 @@ use xutl\inspinia\ActiveForm;
     <?php // echo $form->field($model, 'published_at') ?>
 
     <div class="form-group">
-        <?= Html::submitButton(Yii::t('app', 'Search'), ['class' => 'btn btn-primary']) ?>
-        <?= Html::resetButton(Yii::t('app', 'Reset'), ['class' => 'btn btn-default']) ?>
+        <?= Html::submitButton(Yii::t('article', 'Search'), ['class' => 'btn btn-primary']) ?>
+        <?= Html::resetButton(Yii::t('article', 'Reset'), ['class' => 'btn btn-default']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>
