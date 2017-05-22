@@ -18,7 +18,7 @@ composer require "yuncms/yii2-article:~1.0"
 ###Url规则
 ````
 'article'=>'article/article/index',
-'article/<key:[\w+]+>' => 'article/article/view',
+'article/<uuid:[\w+]+>' => 'article/article/view',
 ````
 
 # License
