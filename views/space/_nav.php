@@ -7,7 +7,9 @@ use yii\bootstrap\Nav;
     'items' => [
 
         //我发起的直播
-        ['label' => Yii::t('article', 'My Articles'), 'url' => ['/article/space/started', 'id' => $user->id]],
+        [
+            'label' => !Yii::$app->user->isGuest && Yii::$app->user->id == $user->id ? Yii::t('article', 'My Articles') : Yii::t('article', 'His Articles'),
+            'url' => ['/article/space/started', 'id' => $user->id]],
         //我收藏的直播
         ['label' => Yii::t('article', 'Collection of articles'), 'url' => ['/article/space/collected', 'id' => $user->id]]
     ]
