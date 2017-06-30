@@ -77,11 +77,11 @@ $this->registerJs('
     <div class="col-xs-12 col-md-3 side">
         <div class="widget-user">
             <div class="media">
-                <a class="pull-left" href="<?= Url::to(['/user/profile/show', 'id' => $model->user_id]) ?>"><img
+                <a class="pull-left" href="<?= Url::to(['/user/space/view', 'id' => $model->user_id]) ?>"><img
                         class="media-object avatar-64" src="<?= $model->user->getAvatar('middle') ?>"
                         alt="<?= $model->user->username ?>"></a>
                 <div class="media-body ">
-                    <a href="<?= Url::to(['/user/profile/show', 'id' => $model->user_id]) ?>"
+                    <a href="<?= Url::to(['/user/space/view', 'id' => $model->user_id]) ?>"
                        class="media-heading"><?= $model->user->username ?></a>
                     <p class="text-muted"><?= $model->user->profile->introduction ?></p>
                     <p class="text-muted"><?= Yii::t('article', '{n, plural, =0{No article} =1{One article} other{# articles}}', ['n' => $model->user->userData->articles]); ?></p>
