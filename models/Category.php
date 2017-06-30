@@ -13,6 +13,7 @@ use yii\db\ActiveRecord;
 use yii\behaviors\TimestampBehavior;
 use yii\helpers\ArrayHelper;
 use Overtrue\Pinyin\Pinyin;
+use yuncms\user\models\Collection;
 
 /**
  * Class Category
@@ -115,6 +116,15 @@ class Category extends ActiveRecord
     public function getCategories()
     {
         return $this->hasMany(static::className(), ['parent' => 'id']);
+    }
+
+    /**
+     * Collection Relation
+     * @return \yii\db\ActiveQueryInterface
+     */
+    public function getCollections()
+    {
+        return $this->hasMany(Collection::className(), ['model_id' => 'id'])->onCondition(['model' => static::className()]);
     }
 
     /**

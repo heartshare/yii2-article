@@ -159,6 +159,15 @@ class Article extends ActiveRecord
     }
 
     /**
+     * Collection Relation
+     * @return \yii\db\ActiveQueryInterface
+     */
+    public function getCollections()
+    {
+        return $this->hasMany(Collection::className(), ['model_id' => 'id'])->onCondition(['model' => static::className()]);
+    }
+
+    /**
      * User Relation
      * @return \yii\db\ActiveQueryInterface
      */

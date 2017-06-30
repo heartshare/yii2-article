@@ -18,7 +18,9 @@
  */
 return [
     'ID' => '',
-    'Operation' => '',
+    'Operation' => '操作',
+    'My Articles'=>'我的文章',
+    'Collection of articles'=>'收藏的文章',
     'Please select' => '请选择',
     'Sub Title' => '子标题',
     'Update {modelClass}: ' => '',
