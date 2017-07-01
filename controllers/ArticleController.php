@@ -4,6 +4,7 @@
  * @copyright Copyright (c) 2012 TintSoft Technology Co. Ltd.
  * @license http://www.tintsoft.com/license/
  */
+
 namespace yuncms\article\controllers;
 
 use Yii;
@@ -30,7 +31,7 @@ class ArticleController extends Controller
                 'rules' => [
                     [
                         'allow' => true,
-                        'actions' => ['index', 'view','tag'],
+                        'actions' => ['index', 'view', 'tag'],
                         'roles' => ['?', '@'],
                     ]
                 ],
@@ -70,9 +71,19 @@ class ArticleController extends Controller
         }
     }
 
-    public function actionView($uuid)
+    /**
+     * 查看文章
+     * @param int $id
+     * @param string $uuid
+     * @return string|\yii\web\Response
+     */
+    public function actionView($id = null, $uuid = null)
     {
-        $model = $this->findModel($uuid);
+        if (!is_null($id)) {
+            $model = $this->findModel($id);
+        } else {
+            $model = $this->findModel($uuid);
+        }
         if ($model && ($model->isActive() || $model->isAuthor())) {
             if (!$model->isAuthor()) $model->updateCounters(['views' => 1]);
             return $this->render('view', [
@@ -88,12 +99,29 @@ class ArticleController extends Controller
      * Finds the Article model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      *
+     * @param int $id
+     *
+     * @return Article the loaded model
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    protected function findModel($id)
+    {
+        if (($model = Article::findOne(['id' => $id])) != null) {
+            return $model;
+        }
+        throw new NotFoundHttpException('The requested page does not exist');
+    }
+
+    /**
+     * Finds the Article model based on its primary key value.
+     * If the model is not found, a 404 HTTP exception will be thrown.
+     *
      * @param string $uuid
      *
      * @return Article the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($uuid)
+    protected function findModelByUUID($uuid)
     {
         if (($model = Article::findOne(['uuid' => $uuid])) != null) {
             return $model;

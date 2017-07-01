@@ -132,11 +132,13 @@ class Article extends ActiveRecord
     }
 
     /**
-     * 设置发布状态
+     * 审核通过
      * @return int
      */
     public function setPublished()
     {
+        //记录动态
+        doing($this->user_id, 'create_article', get_class($this), $this->id, $this->title, mb_substr(strip_tags($this->content), 0, 200));
         return $this->updateAttributes(['status' => static::STATUS_ACTIVE, 'published_at' => time()]);
     }
 
@@ -183,17 +185,6 @@ class Article extends ActiveRecord
     public function getCollection()
     {
         return $this->hasOne(Collection::className(), ['model_id' => 'id'])->onCondition(['model' => get_class($this)]);
-    }
-
-    /**
-     * 审核通过
-     * @return bool
-     */
-    public function setActive()
-    {
-        //记录动态
-        doing($this->user_id, 'create_article', get_class($this), $this->id, $this->title, mb_substr(strip_tags($this->content), 0, 200));
-        return (bool)$this->updateAttributes(['status' => self::STATUS_ACTIVE, 'published_at' => time()]);
     }
 
     /**
