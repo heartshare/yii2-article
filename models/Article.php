@@ -191,6 +191,8 @@ class Article extends ActiveRecord
      */
     public function setActive()
     {
+        //记录动态
+        doing($this->user_id, 'create_article', get_class($this), $this->id, $this->title, mb_substr(strip_tags($this->content), 0, 200));
         return (bool)$this->updateAttributes(['status' => self::STATUS_ACTIVE, 'published_at' => time()]);
     }
 
