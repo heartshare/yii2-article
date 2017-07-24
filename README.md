@@ -15,11 +15,21 @@ composer require "yuncms/yii2-article:~1.0"
 ```
 ## 使用
 
+前台模块
+
+yuncms\article\frontend\Module
+
+后台模块
+
+yuncms\article\backend\Module
+
 ###Url规则
 ````
 'article'=>'article/article/index',
 'article/<uuid:[\w+]+>' => 'article/article/view',
 ````
+
+
 
 # License
 
