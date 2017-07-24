@@ -13,6 +13,7 @@ use yii\db\ActiveRecord;
 use yii\behaviors\TimestampBehavior;
 use yii\helpers\ArrayHelper;
 use Overtrue\Pinyin\Pinyin;
+use yii\helpers\Inflector;
 use yuncms\user\models\Collection;
 
 /**
@@ -20,6 +21,7 @@ use yuncms\user\models\Collection;
  * @property int $id ID
  * @property integer $parent 父ID
  * @property string $name 标题
+ * @property string $slug 标识
  * @property string $keywords 关键词
  * @property string $description 描述
  * @property string $pinyin 拼音
@@ -59,7 +61,7 @@ class Category extends ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'slug'], 'required'],
+            [['name'], 'required'],
             [['slug'], 'string', 'max' => 20],
             [['letter'], 'string', 'max' => 1],
             [['keywords', 'pinyin'], 'string', 'max' => 255],
@@ -89,7 +91,6 @@ class Category extends ActiveRecord
             'slug' => Yii::t('article', 'Category Slug'),
             'keywords' => Yii::t('article', 'Category Keywords'),
             'description' => Yii::t('article', 'Category Description'),
-            'pinyin' => Yii::t('article', 'Pinyin'),
             'letter' => Yii::t('article', 'Letter'),
             'frequency' => Yii::t('article', 'Frequency'),
             'sort' => Yii::t('article', 'Sort'),
@@ -149,12 +150,11 @@ class Category extends ActiveRecord
     /** @inheritdoc */
     public function beforeSave($insert)
     {
-        if (empty($this->pinyin)) {
-            $py = new Pinyin();
-            $this->pinyin = strtolower($py->permalink($this->name, ''));
+        if (empty($this->slug)) {
+            $this->slug = Inflector::slug($this->name,'');
         }
         if (empty($this->letter)) {
-            $this->letter = strtoupper(substr($this->pinyin, 0, 1));
+            $this->letter = strtoupper(substr($this->slug, 0, 1));
         }
         return parent::beforeSave($insert);
     }

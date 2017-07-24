@@ -1,6 +1,6 @@
 <?php
 
-namespace yuncms\article\frontend\models;
+namespace yuncms\article\backend\models;
 
 use Yii;
 use yii\base\Model;

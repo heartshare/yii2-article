@@ -34,13 +34,7 @@ $categories = Category::find()->select(['id', 'name'])->orderBy(['sort' => SORT_
 <?= $form->field($model, 'description')->textInput(['maxlength' => true]) ?>
 <div class="hr-line-dashed"></div>
 
-<?= $form->field($model, 'pinyin')->textInput(['maxlength' => true]) ?>
-<div class="hr-line-dashed"></div>
-
 <?= $form->field($model, 'letter')->textInput(['maxlength' => true]) ?>
-<div class="hr-line-dashed"></div>
-
-<?= $form->field($model, 'frequency')->input('number') ?>
 <div class="hr-line-dashed"></div>
 
 <?= $form->field($model, 'sort')->input('number') ?>

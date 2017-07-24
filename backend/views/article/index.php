@@ -79,7 +79,7 @@ jQuery(\"#batch_deletion\").on(\"click\", function () {
                     'is_top:boolean',
                     'is_best:boolean',
                     // 'description',
-                    'user.username',
+                    'user.name',
                     [
                         'header' => Yii::t('article', 'Status'),
                         'value' => function ($model) {

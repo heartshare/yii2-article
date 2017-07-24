@@ -9,7 +9,7 @@ use yii\filters\VerbFilter;
 use yii\web\NotFoundHttpException;
 use yuncms\article\models\Article;
 use yuncms\article\models\ArticleData;
-use yuncms\article\models\ArticleSearch;
+use yuncms\article\backend\models\ArticleSearch;
 
 /**
  * ArticleController implements the CRUD actions for Article model.

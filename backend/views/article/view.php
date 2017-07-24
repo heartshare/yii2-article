@@ -69,7 +69,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'is_hot:boolean',
                     'is_best:boolean',
 
-                    'user.username',
+                    'user.name',
                     'created_at:datetime',
                     'updated_at:datetime',
                     'published_at:datetime',

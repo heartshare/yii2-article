@@ -21,7 +21,6 @@ class M170421033434Create_categories_table extends Migration
             'slug' => $this->string(50),
             'keywords' => $this->string(),
             'description' => $this->string(1000)->defaultValue(''),
-            'pinyin' => $this->string(),
             'letter' => $this->string(1),
             'frequency' => $this->integer()->notNull()->defaultValue(0),
             'sort' => $this->smallInteger(5)->notNull()->defaultValue(0),

@@ -82,7 +82,7 @@ class ArticleController extends Controller
         if (!is_null($id)) {
             $model = $this->findModel($id);
         } else {
-            $model = $this->findModel($uuid);
+            $model = $this->findModelByUUID($uuid);
         }
         if ($model && ($model->isActive() || $model->isAuthor())) {
             if (!$model->isAuthor()) $model->updateCounters(['views' => 1]);

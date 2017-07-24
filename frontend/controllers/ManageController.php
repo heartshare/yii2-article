@@ -8,7 +8,7 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use yuncms\article\models\Article;
-use yuncms\article\models\ManageSearch;
+use yuncms\article\frontend\models\ManageSearch;
 
 /**
  * ManageController implements the CRUD actions for Article model.

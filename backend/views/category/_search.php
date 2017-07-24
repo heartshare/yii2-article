@@ -22,7 +22,7 @@ use xutl\inspinia\ActiveForm;
 
     <?= $form->field($model, 'name') ?>
 
-    <?php // echo $form->field($model, 'slug') ?>
+    <?=$form->field($model, 'slug') ?>
 
     <?php // echo $form->field($model, 'keywords') ?>
 
