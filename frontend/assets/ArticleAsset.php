@@ -4,7 +4,7 @@
  * @copyright Copyright (c) 2012 TintSoft Technology Co. Ltd.
  * @license http://www.tintsoft.com/license/
  */
-namespace yuncms\article\assets;
+namespace yuncms\article\frontend\assets;
 
 use yii\web\AssetBundle;
 
@@ -13,7 +13,7 @@ use yii\web\AssetBundle;
  */
 class ArticleAsset extends AssetBundle
 {
-    public $sourcePath = '@vendor/yuncms/yii2-article/views/assets';
+    public $sourcePath = '@yuncms/article/frontend/views/assets';
 
     /**
      * @var array

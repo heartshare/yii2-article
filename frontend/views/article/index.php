@@ -3,7 +3,8 @@ use yii\helpers\Url;
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\widgets\ListView;
-use yuncms\article\assets\ArticleAsset;
+use yuncms\article\frontend\assets\ArticleAsset;
+
 /*
  * @var yii\web\View $this
  */
