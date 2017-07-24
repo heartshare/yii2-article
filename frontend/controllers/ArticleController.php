@@ -5,7 +5,7 @@
  * @license http://www.tintsoft.com/license/
  */
 
-namespace yuncms\article\controllers;
+namespace yuncms\article\frontend\controllers;
 
 use Yii;
 use yii\helpers\Url;

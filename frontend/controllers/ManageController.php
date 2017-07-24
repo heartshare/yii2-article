@@ -1,6 +1,6 @@
 <?php
 
-namespace yuncms\article\controllers;
+namespace yuncms\article\frontend\controllers;
 
 use Yii;
 use yii\web\Controller;

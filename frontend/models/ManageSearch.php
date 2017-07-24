@@ -1,6 +1,6 @@
 <?php
 
-namespace yuncms\article\models;
+namespace yuncms\article\frontend\models;
 
 use Yii;
 use yii\base\Model;
@@ -8,9 +8,9 @@ use yii\data\ActiveDataProvider;
 use yuncms\article\models\Article;
 
 /**
- * ArticleSearch represents the model behind the search form about `yuncms\article\models\Article`.
+ * ManageSearch represents the model behind the search form about `yuncms\article\models\Article`.
  */
-class ArticleSearch extends Article
+class ManageSearch extends Article
 {
     /**
      * @inheritdoc
@@ -18,8 +18,8 @@ class ArticleSearch extends Article
     public function rules()
     {
         return [
-            [['id', 'status', 'comments', 'supports', 'collections', 'views', 'is_top', 'is_best', 'user_id', 'created_at', 'updated_at', 'published_at'], 'integer'],
-            [['title'], 'safe'],
+            [['status', 'comments', 'supports', 'collections', 'views', 'is_top', 'is_best'], 'integer'],
+            [['uuid', 'category_id', 'title', 'sub_title'], 'safe'],
         ];
     }
 
@@ -41,7 +41,7 @@ class ArticleSearch extends Article
      */
     public function search($params)
     {
-        $query = Article::find();
+        $query = Article::find()->where(['user_id' => Yii::$app->user->id]);
 
         // add conditions that should always apply here
 
@@ -57,37 +57,22 @@ class ArticleSearch extends Article
             return $dataProvider;
         }
 
-        if ($this->created_at !== null) {
-            $date = strtotime($this->created_at);
-            $query->andFilterWhere(['between', 'created_at', $date, $date + 3600 * 24]);
-        }
-
-
-        if ($this->updated_at !== null) {
-            $date = strtotime($this->updated_at);
-            $query->andFilterWhere(['between', 'updated_at', $date, $date + 3600 * 24]);
-        }
-
-        if ($this->published_at !== null) {
-            $date = strtotime($this->published_at);
-            $query->andFilterWhere(['between', 'published_at', $date, $date + 3600 * 24]);
-        }
-
-
         // grid filtering conditions
         $query->andFilterWhere([
-            'id' => $this->id,
+
             'status' => $this->status,
             'comments' => $this->comments,
-            'views' => $this->views,
             'supports' => $this->supports,
             'collections' => $this->collections,
+            'views' => $this->views,
             'is_top' => $this->is_top,
             'is_best' => $this->is_best,
-            'user_id' => $this->user_id,
         ]);
 
-        $query->andFilterWhere(['like', 'title', $this->title]);
+        $query->andFilterWhere(['like', 'uuid', $this->uuid])
+            ->andFilterWhere(['like', 'category_id', $this->category_id])
+            ->andFilterWhere(['like', 'title', $this->title])
+            ->andFilterWhere(['like', 'sub_title', $this->sub_title]);
 
         return $dataProvider;
     }
