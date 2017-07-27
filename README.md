@@ -5,7 +5,7 @@
 [![Total Downloads](https://poser.pugx.org/yuncms/yii2-article/downloads.png)](https://packagist.org/packages/yuncms/yii2-article)
 [![Reference Status](https://www.versioneye.com/php/yuncms:yii2-article/reference_badge.svg)](https://www.versioneye.com/php/yuncms:yii2-article/references)
 [![Build Status](https://img.shields.io/travis/yiisoft/yii2-article.svg)](http://travis-ci.org/yuncms/yii2-article)
-[![Dependency Status](https://www.versioneye.com/php/yuncms:yii2-article/master/badge.png)](https://www.versioneye.com/php/yuncms:yii2-article/master)
+[![Dependency Status](https://www.versioneye.com/php/yuncms:yii2-article/dev-master/badge.png)](https://www.versioneye.com/php/yuncms:yii2-article/dev-master)
 [![License](https://poser.pugx.org/yuncms/yii2-article/license.svg)](https://packagist.org/packages/yuncms/yii2-article)
 
 ## 安装
