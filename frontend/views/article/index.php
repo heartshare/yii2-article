@@ -42,8 +42,8 @@ ArticleAsset::register($this);
             <a class="btn btn-primary btn-block mt-10" href="<?= Url::to(['/article/manage/create']) ?>"><i
                         class="fa fa-edit"></i> <?= Yii::t('article', 'Write a article'); ?></a>
         </div>
-        <?= \yuncms\article\widgets\PopularArticle::widget(['limit' => 10, 'cache' => 3600]); ?>
-        <?= \yuncms\article\widgets\PopularTag::widget(['limit' => 10, 'cache' => 3600]); ?>
+        <?= \yuncms\article\frontend\widgets\PopularArticle::widget(['limit' => 10, 'cache' => 3600]); ?>
+        <?= \yuncms\article\frontend\widgets\PopularTag::widget(['limit' => 10, 'cache' => 3600]); ?>
     </div><!-- /.side -->
 </div>
 

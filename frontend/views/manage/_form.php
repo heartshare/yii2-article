@@ -22,10 +22,10 @@ use xutl\fileupload\SingleUpload;
 
 
     <?php
-    $categories = Category::find()->select(['id', 'name', 'pinyin'])->where(['parent' => null])->with('categories')->orderBy(['sort' => SORT_ASC])->asArray()->all();
+    $categories = Category::find()->select(['id', 'name', 'slug'])->where(['parent' => null])->with('categories')->orderBy(['sort' => SORT_ASC])->asArray()->all();
     if (Yii::$app->language == 'en-US') {
         foreach ($categories as $id => $category) {
-            $categories[$id]['categories'] = ArrayHelper::map($category['categories'], 'id', 'pinyin');
+            $categories[$id]['categories'] = ArrayHelper::map($category['categories'], 'id', 'slug');
         }
     } else {
         foreach ($categories as $id => $category) {

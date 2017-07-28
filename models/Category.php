@@ -24,7 +24,7 @@ use yuncms\user\models\Collection;
  * @property string $slug 标识
  * @property string $keywords 关键词
  * @property string $description 描述
- * @property string $pinyin 拼音
+ * @property string $slug 拼音
  * @property string $letter 首字母
  * @property int $frequency 热度
  * @package yuncms\article\models
@@ -64,7 +64,7 @@ class Category extends ActiveRecord
             [['name'], 'required'],
             [['slug'], 'string', 'max' => 20],
             [['letter'], 'string', 'max' => 1],
-            [['keywords', 'pinyin'], 'string', 'max' => 255],
+            [['keywords', 'slug'], 'string', 'max' => 255],
             [['description'], 'string', 'max' => 1000],
 
             [['parent_name'], 'in',

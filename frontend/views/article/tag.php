@@ -54,8 +54,8 @@ $this->params['breadcrumbs'][] = Html::encode($model->name);
 
     <div class="col-xs-12 col-md-3 side">
 
-        <?= \yuncms\article\widgets\PopularArticle::widget(['limit'=>10,'cache'=>3600]); ?>
+        <?= \yuncms\article\frontend\widgets\PopularArticle::widget(['limit'=>10,'cache'=>3600]); ?>
 
-        <?= \yuncms\article\widgets\PopularTag::widget(['limit'=>10,'cache'=>3600]); ?>
+        <?= \yuncms\article\frontend\widgets\PopularTag::widget(['limit'=>10,'cache'=>3600]); ?>
     </div><!-- /.side -->
 </div>

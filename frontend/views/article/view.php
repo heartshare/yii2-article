@@ -68,7 +68,7 @@ $this->registerJs('
 
         <div class="widget-answers mt-15">
             <h2 class="h4 post-title"><?= Yii::t('article', '{n, plural, =0{No comment} =1{One comment} other{# reviews}}', ['n' => $model->comments]); ?></h2>
-            <?= \yuncms\comment\widgets\Comment::widget(['source_type' => 'article', 'source_id' => $model->id, 'hide_cancel' => false]) ?>
+            <?= \yuncms\comment\frontend\widgets\Comment::widget(['source_type' => 'article', 'source_id' => $model->id, 'hide_cancel' => false]) ?>
         </div>
 
     </div><!-- /.main -->
@@ -89,9 +89,9 @@ $this->registerJs('
             </div>
         </div>
 
-        <?= \yuncms\article\widgets\PopularArticle::widget(['limit' => 10, 'cache' => 3600]); ?>
+        <?= \yuncms\article\frontend\widgets\PopularArticle::widget(['limit' => 10, 'cache' => 3600]); ?>
 
-        <?= \yuncms\article\widgets\PopularTag::widget(['limit' => 10, 'cache' => 3600]); ?>
+        <?= \yuncms\article\frontend\widgets\PopularTag::widget(['limit' => 10, 'cache' => 3600]); ?>
 
     </div><!-- /.side -->
 </div>

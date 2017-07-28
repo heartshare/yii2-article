@@ -57,7 +57,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'columns' => [
                     'name',
                     'slug',
-                    'pinyin',
+                    'slug',
                     'letter',
                     'frequency',
                     [

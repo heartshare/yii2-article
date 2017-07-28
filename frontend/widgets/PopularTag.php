@@ -4,7 +4,7 @@
  * @copyright Copyright (c) 2012 TintSoft Technology Co. Ltd.
  * @license http://www.tintsoft.com/license/
  */
-namespace yuncms\article\widgets;
+namespace yuncms\article\frontend\widgets;
 
 use yii\base\Widget;
 use yii\helpers\Html;
