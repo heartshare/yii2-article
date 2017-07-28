@@ -48,6 +48,7 @@ yuncms\article\backend\Module
 
 
 
-# License
+## License
 
-BSD-3-Clause
+This is released under the MIT License. See the bundled [LICENSE.md](LICENSE.md)
+for details.
