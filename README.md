@@ -8,27 +8,23 @@
 [![Dependency Status](https://www.versioneye.com/php/yuncms:yii2-article/dev-master/badge.png)](https://www.versioneye.com/php/yuncms:yii2-article/dev-master)
 [![License](https://poser.pugx.org/yuncms/yii2-article/license.svg)](https://packagist.org/packages/yuncms/yii2-article)
 
+## Installation
 
-Installation
-------------
-
-Next steps will guide you through the process of installing yii2-admin using [composer](http://getcomposer.org/download/). Installation is a quick and easy three-step process.
-
-### Step 1: Install component via composer
+The preferred way to install this extension is through [composer](http://getcomposer.org/download/).
 
 Either run
 
-```
-composer require --prefer-dist yuncms/yii2-article
+```bash
+$ composer require yuncms/yii2-article
 ```
 
 or add
 
-```json
+```
 "yuncms/yii2-article": "~2.0.0"
 ```
 
-to the `require` section of your composer.json.
+to the `require` section of your `composer.json` file.
 
 ## 使用
 
