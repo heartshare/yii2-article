@@ -37,6 +37,7 @@ class M170119085622Create_article_table extends Migration
         ], $tableOptions);
         $this->createIndex('index_published_at', '{{%article}}', 'published_at');
 
+        $this->alterColumn('{{%article}}','uuid','varchar(50) BINARY');
         $this->createIndex('index_uuid', '{{%article}}', 'uuid');
     }
 
