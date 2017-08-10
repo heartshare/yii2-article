@@ -38,8 +38,11 @@ yuncms\article\backend\Module
 
 ###Url规则
 ````
-'article'=>'article/article/index',
-'article/<uuid:[\w+]+>' => 'article/article/view',
+    'articles/<page:\d+>' => 'article/article/index',
+    'articles' => 'article/article/index',
+    'article/create' => 'article/article/create',
+    'article/tag' => 'article/article/tag',
+    'article/<key:[\w+]+>' => 'article/article/view',
 ````
 
 
