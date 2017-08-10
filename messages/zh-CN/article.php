@@ -18,6 +18,9 @@
  */
 return [
     'His Articles' => '他的文章',
+    'Edit' => '修改',
+    'Sure?' => '你确定？',
+    'Remove' => '删除',
     'His Collection of articles' => '他收藏的文章',
     'ID' => '',
     'My Collection of articles' => '我收藏的文章',

@@ -1,5 +1,6 @@
 <?php
 /* @var $this yii\web\View */
+
 use yii\helpers\Url;
 use yii\helpers\Html;
 
@@ -36,26 +37,38 @@ $this->registerJs('
                     <ul class="list-inline text-muted">
                         <li>
                             <i class="fa fa-clock-o"></i>
-                            <?=Yii::t('article', 'Published in');?> <?= Yii::$app->formatter->asDate($model->created_at) ?>
+                            <?= Yii::t('article', 'Published in'); ?> <?= Yii::$app->formatter->asDate($model->created_at) ?>
                         </li>
-                        <li><?=Yii::t('article', 'Views');?> ( <?= $model->views ?> )</li>
+                        <li><?= Yii::t('article', 'Views'); ?> ( <?= $model->views ?> )</li>
 
+                        <?php if ($model->isAuthor()) : ?>
+                            <li><a href="<?= Url::to(['update', 'id' => $model->id]) ?>" class="edit"><i
+                                            class="fa fa-edit"></i> <?= Yii::t('article', 'Edit'); ?></a></li>
+                            <li><a href="<?= Url::to(['delete', 'id' => $model->id]) ?>" class="edit" data-method="post"
+                                   data-confirm="<?= Yii::t('article', 'Sure?'); ?>"><i
+                                            class="fa fa-remove"></i> <?= Yii::t('article', 'Remove'); ?></a></li>
+                        <?php endif; ?>
                     </ul>
                 </div>
+
             </div>
             <div class="text-center mt-10 mb-20">
 
                 <button data-target="support-button" class="btn btn-success btn-lg mr-5"
                         data-source_id="<?= $model->id ?>" data-source_type="article"
-                        data-support_num="<?= $model->supports ?>"><?= $model->supports ?> <?=Yii::t('article', 'Support');?>
+                        data-support_num="<?= $model->supports ?>"><?= $model->supports ?> <?= Yii::t('article', 'Support'); ?>
                 </button>
                 <?php if (!Yii::$app->user->isGuest && Yii::$app->user->identity->isCollected(get_class($model), $model->id)): ?>
-                    <button data-target="collect-button" class="btn btn-default btn-lg" data-loading-text="<?=Yii::t('article', 'Loading...');?>"
-                            data-source_type="article" data-source_id="<?= $model->id ?>"> <?=Yii::t('article', 'collected');?>
+                    <button data-target="collect-button" class="btn btn-default btn-lg"
+                            data-loading-text="<?= Yii::t('article', 'Loading...'); ?>"
+                            data-source_type="article"
+                            data-source_id="<?= $model->id ?>"> <?= Yii::t('article', 'collected'); ?>
                     </button>
                 <?php else: ?>
-                    <button data-target="collect-button" class="btn btn-default btn-lg" data-loading-text="<?=Yii::t('article', 'Loading...');?>"
-                            data-source_type="article" data-source_id="<?= $model->id ?>"> <?=Yii::t('article', 'Collect');?>
+                    <button data-target="collect-button" class="btn btn-default btn-lg"
+                            data-loading-text="<?= Yii::t('article', 'Loading...'); ?>"
+                            data-source_type="article"
+                            data-source_id="<?= $model->id ?>"> <?= Yii::t('article', 'Collect'); ?>
                     </button>
                 <?php endif; ?>
             </div>
@@ -78,8 +91,8 @@ $this->registerJs('
         <div class="widget-user">
             <div class="media">
                 <a class="pull-left" href="<?= Url::to(['/user/space/view', 'id' => $model->user_id]) ?>"><img
-                        class="media-object avatar-64" src="<?= $model->user->getAvatar('middle') ?>"
-                        alt="<?= $model->user->name ?>"></a>
+                            class="media-object avatar-64" src="<?= $model->user->getAvatar('middle') ?>"
+                            alt="<?= $model->user->name ?>"></a>
                 <div class="media-body ">
                     <a href="<?= Url::to(['/user/space/view', 'id' => $model->user_id]) ?>"
                        class="media-heading"><?= $model->user->name ?></a>

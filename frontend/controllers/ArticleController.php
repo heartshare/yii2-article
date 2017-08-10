@@ -8,10 +8,12 @@
 namespace yuncms\article\frontend\controllers;
 
 use Yii;
+use yii\filters\VerbFilter;
 use yii\helpers\Url;
 use yii\web\Controller;
 use yii\filters\AccessControl;
 use yii\data\ActiveDataProvider;
+use yii\web\ForbiddenHttpException;
 use yii\web\NotFoundHttpException;
 use yuncms\tag\models\Tag;
 use yuncms\article\models\Article;
@@ -26,6 +28,12 @@ class ArticleController extends Controller
     public function behaviors()
     {
         return [
+            'verbs' => [
+                'class' => VerbFilter::className(),
+                'actions' => [
+                    'delete' => ['post'],
+                ],
+            ],
             'access' => [
                 'class' => AccessControl::className(),
                 'rules' => [
@@ -33,7 +41,12 @@ class ArticleController extends Controller
                         'allow' => true,
                         'actions' => ['index', 'view', 'tag'],
                         'roles' => ['?', '@'],
-                    ]
+                    ],
+                    [
+                        'allow' => true,
+                        'actions' => ['create', 'update', 'delete', 'auto-complete'],
+                        'roles' => ['@'],
+                    ],
                 ],
             ],
         ];
@@ -93,6 +106,62 @@ class ArticleController extends Controller
             Yii::$app->session->setFlash('success', Yii::t('article', 'Article does not exist.'));
             return $this->redirect(['index',]);
         }
+    }
+
+    /**
+     * Creates a new Article model.
+     * If creation is successful, the browser will be redirected to the 'view' page.
+     * @return mixed
+     */
+    public function actionCreate()
+    {
+        $model = new Article();
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['view', 'uuid' => $model->uuid]);
+        } else {
+            return $this->render('create', [
+                'model' => $model,
+            ]);
+        }
+    }
+
+    /**
+     * Updates an existing Article model.
+     * If update is successful, the browser will be redirected to the 'view' page.
+     * @param integer $id
+     * @param int $id
+     * @return string|\yii\web\Response
+     * @throws ForbiddenHttpException
+     */
+    public function actionUpdate($id)
+    {
+        $model = $this->findModel($id);
+        if ($model->isAuthor()) {
+            if ($model->load(Yii::$app->request->post()) && $model->save()) {
+                Yii::$app->getSession()->setFlash('success', Yii::t('article', 'Note updated.'));
+                return $this->redirect(['view', 'uuid' => $model->uuid]);
+            }
+            return $this->render('update', ['model' => $model]);
+        }
+        throw new ForbiddenHttpException(Yii::t('yii', 'You are not allowed to perform this action.'));
+    }
+
+    /**
+     * Deletes an existing Article model.
+     * If deletion is successful, the browser will be redirected to the 'index' page.
+     * @param int $id
+     * @return \yii\web\Response
+     * @throws ForbiddenHttpException
+     */
+    public function actionDelete($id)
+    {
+        $model = $this->findModel($id);
+        if ($model->isAuthor()) {
+            $model->delete();
+            Yii::$app->getSession()->setFlash('success', Yii::t('article', 'Note has been deleted'));
+            return $this->redirect(['index']);
+        }
+        throw new ForbiddenHttpException(Yii::t('yii', 'You are not allowed to perform this action.'));
     }
 
     /**
