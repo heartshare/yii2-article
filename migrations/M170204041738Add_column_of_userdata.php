@@ -4,16 +4,16 @@ namespace yuncms\article\migrations;
 
 use yii\db\Migration;
 
-class M170204041738Add_column_of_userdata extends Migration
+class M170204041738Add_column_of_extend extends Migration
 {
     public function up()
     {
-        $this->addColumn('{{%user_data}}', 'articles', $this->integer()->unsigned()->defaultValue(0)->comment('文章数'));
+        $this->addColumn('{{%user_extend}}', 'articles', $this->integer()->unsigned()->defaultValue(0)->comment('文章数'));
     }
 
     public function down()
     {
-        $this->dropColumn('{{%user_data}}', 'articles');
+        $this->dropColumn('{{%user_extend}}', 'articles');
     }
 
     /*
