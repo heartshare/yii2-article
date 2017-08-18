@@ -12,6 +12,7 @@ use yii\db\ActiveRecord;
 use yuncms\tag\models\Tag;
 use yuncms\system\models\Category;
 use yuncms\user\models\Collection;
+use yuncms\user\models\User;
 
 /**
  * Class Article
@@ -175,7 +176,7 @@ class Article extends ActiveRecord
      */
     public function getUser()
     {
-        return $this->hasOne(Yii::$app->user->identityClass, ['id' => 'user_id']);
+        return $this->hasOne(User::className(), ['id' => 'user_id']);
     }
 
     /**
@@ -213,7 +214,7 @@ class Article extends ActiveRecord
         if ($insert) {
             $this->updateAttributes(['uuid' => $this->generateKey()]);
             /* 用户文章数+1 */
-            Yii::$app->user->identity->userData->updateCounters(['articles' => 1]);
+            Yii::$app->user->identity->extend->updateCounters(['articles' => 1]);
         }
         return parent::afterSave($insert, $changedAttributes);
     }
@@ -240,7 +241,7 @@ class Article extends ActiveRecord
 
     public function afterDelete()
     {
-        $this->user->userData->updateCounters(['articles' => -1]);
+        $this->user->extend->updateCounters(['articles' => -1]);
         parent::afterDelete();
     }
 }

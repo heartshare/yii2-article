@@ -57,7 +57,6 @@ $this->params['breadcrumbs'][] = $this->title;
                 'model' => $model,
                 'attributes' => [
                     'id',
-                    'key',
                     'title',
                     'status',
                     'cover',
@@ -66,10 +65,8 @@ $this->params['breadcrumbs'][] = $this->title;
                     'comments',
                     'views',
                     'is_top:boolean',
-                    'is_hot:boolean',
                     'is_best:boolean',
-
-                    'user.name',
+                    'user.username',
                     'created_at:datetime',
                     'updated_at:datetime',
                     'published_at:datetime',

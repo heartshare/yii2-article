@@ -1,4 +1,5 @@
 <?php
+
 use yii\web\View;
 use yii\helpers\Html;
 use yii\grid\GridView;
@@ -79,7 +80,7 @@ jQuery(\"#batch_deletion\").on(\"click\", function () {
                     'is_top:boolean',
                     'is_best:boolean',
                     // 'description',
-                    'user.name',
+                    'user.username',
                     [
                         'header' => Yii::t('article', 'Status'),
                         'value' => function ($model) {
@@ -90,14 +91,14 @@ jQuery(\"#batch_deletion\").on(\"click\", function () {
                                     'data-confirm' => Yii::t('article', 'Are you sure you want to Accepted this article?'),
                                 ]);
                             } else {
-                                return Html::tag('span',Yii::t('article', 'Accepted'),['class'=>'badge badge-primary']);
+                                return Html::tag('span', Yii::t('article', 'Accepted'), ['class' => 'badge badge-primary']);
                             }
                         },
                         'format' => 'raw',
                     ],
                     'created_at:datetime',
                     // 'updated_at:datetime',
-                    ['class' => 'yii\grid\ActionColumn', 'header' => Yii::t('app', 'Operation'),],
+                    ['class' => 'yii\grid\ActionColumn', 'header' => Yii::t('article', 'Operation'),],
                 ],
             ]); ?>
             <?php Box::end(); ?>
