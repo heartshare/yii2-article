@@ -4,7 +4,7 @@ namespace yuncms\article\migrations;
 
 use yii\db\Migration;
 
-class M170204041738Add_column_of_extend extends Migration
+class M170204041738Add_column_of_user_extend extends Migration
 {
     public function up()
     {
