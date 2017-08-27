@@ -81,7 +81,7 @@ $this->registerJs('
 
         <div class="widget-answers mt-15">
             <h2 class="h4 post-title"><?= Yii::t('article', '{n, plural, =0{No comment} =1{One comment} other{# reviews}}', ['n' => $model->comments]); ?></h2>
-            <?= \yuncms\comment\widgets\Comment::widget(['source_type' => 'article', 'source_id' => $model->id, 'hide_cancel' => false]) ?>
+            <?= \yuncms\comment\frontend\widgets\Comment::widget(['source_type' => 'article', 'source_id' => $model->id, 'hide_cancel' => false]) ?>
         </div>
 
     </div><!-- /.main -->
