@@ -46,6 +46,23 @@ class ArticleQuery extends ActiveQuery
     }
 
     /**
+     * 带图的
+     * @return $this
+     */
+    public function containCover()
+    {
+        return $this->andWhere(['not', ['cover' => null]]);
+    }
+
+    /**
+     * 最新推荐
+     */
+    public function newSupport()
+    {
+        return $this->active()->orderBy(['(supports / pow((((UNIX_TIMESTAMP(NOW()) - updated_at) / 3600) + 2),1.8) )' => SORT_DESC]);
+    }
+
+    /**
      * 热门文章
      */
     public function hot()
