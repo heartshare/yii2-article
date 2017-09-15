@@ -11,7 +11,7 @@ use Yii;
 use yii\db\ActiveRecord;
 use yuncms\tag\models\Tag;
 use yuncms\system\models\Category;
-use yuncms\user\models\Collection;
+use yuncms\collection\models\Collection;
 use yuncms\user\models\User;
 
 /**
