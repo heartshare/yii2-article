@@ -44,10 +44,19 @@ class ArticleController extends Controller
                     ],
                     [
                         'allow' => true,
-                        'actions' => ['create', 'update', 'delete', 'auto-complete'],
+                        'actions' => ['upload', 'create', 'update', 'delete', 'auto-complete'],
                         'roles' => ['@'],
                     ],
                 ],
+            ],
+        ];
+    }
+
+    public function actions()
+    {
+        return [
+            'upload' => [
+                'class' => 'yuncms\ueditor\UEditorAction',
             ],
         ];
     }

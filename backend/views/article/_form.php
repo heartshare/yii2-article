@@ -3,7 +3,7 @@ use yii\helpers\Html;
 use yii\helpers\ArrayHelper;
 use yuncms\article\models\Article;
 use yuncms\article\models\Category;
-use xutl\ueditor\UEditor;
+use yuncms\ueditor\UEditor;
 use xutl\inspinia\ActiveForm;
 use xutl\fileupload\SingleUpload;
 

@@ -32,6 +32,15 @@ class ArticleController extends Controller
         ];
     }
 
+    public function actions()
+    {
+        return [
+            'upload' => [
+                'class' => 'yuncms\ueditor\UEditorAction',
+            ],
+        ];
+    }
+
     /**
      * Lists all Article models.
      * @return mixed

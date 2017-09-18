@@ -4,7 +4,7 @@ use yii\helpers\Html;
 use yii\helpers\ArrayHelper;
 use yii\bootstrap\ActiveForm;
 use yuncms\article\models\Category;
-use xutl\ueditor\UEditor;
+use yuncms\ueditor\UEditor;
 use xutl\fileupload\SingleUpload;
 
 /* @var $this yii\web\View */
