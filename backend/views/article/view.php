@@ -66,7 +66,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'views',
                     'is_top:boolean',
                     'is_best:boolean',
-                    'user.username',
+                    'user.nickname',
                     'created_at:datetime',
                     'updated_at:datetime',
                     'published_at:datetime',
