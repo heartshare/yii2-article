@@ -11,7 +11,7 @@
     "yiisoft/yii2": "~2.0.6",
     "yiisoft/yii2-queue": "~2.0.0",
     "xutl/yii2-fileupload-widget": "~1.0",
-    "yuncms/yii2-ueditor-widget":"~1.0.0",
+    "yuncms/yii2-ueditor-widget": "~1.0.0",
     "yuncms/yii2-user": "~2.0"
   },
   "autoload": {
@@ -23,8 +23,9 @@
     "yuncms": {
       "name": "article",
       "i18n": {
-        "class":"yii\\i18n\\PhpMessageSource",
-        "basePath":"@yuncms/article/message"
+        "class": "yii\\i18n\\PhpMessageSource",
+        "sourceLanguage": "en-US",
+        "basePath": "@yuncms/article/message"
       },
       "migrationNamespace": "yuncms\\article\\migrations",
       "backend": {
