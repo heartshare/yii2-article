@@ -36,7 +36,9 @@ class ArticleController extends Controller
                 'duration' => 24 * 3600 * 365, // 1 year
                 'variations' => [
                     Yii::$app->user->id,
-                    Yii::$app->language
+                    Yii::$app->language,
+                    Yii::$app->request->get('order'),
+                    Yii::$app->request->get('page'),
                 ],
                 'dependency' => [
                     'class' => 'yii\caching\ChainedDependency',
