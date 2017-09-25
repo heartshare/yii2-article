@@ -8,9 +8,11 @@
 namespace yuncms\article\frontend\controllers;
 
 use Yii;
-use yii\filters\VerbFilter;
 use yii\helpers\Url;
 use yii\web\Controller;
+use yii\filters\VerbFilter;
+use yii\caching\DbDependency;
+use yii\caching\TagDependency;
 use yii\filters\AccessControl;
 use yii\data\ActiveDataProvider;
 use yii\web\ForbiddenHttpException;
@@ -28,6 +30,22 @@ class ArticleController extends Controller
     public function behaviors()
     {
         return [
+            'pageCache' => [
+                'class' => 'yii\filters\PageCache',
+                'only' => ['index'],
+                'duration' => 24 * 3600 * 365, // 1 year
+                'variations' => [
+                    Yii::$app->user->id,
+                    Yii::$app->language
+                ],
+                'dependency' => [
+                    'class' => 'yii\caching\ChainedDependency',
+                    'dependencies' => [
+                        new TagDependency(['tags' => [Yii::$app->controller->module->id]]),
+                        new DbDependency(['sql' => 'SELECT MAX(id) FROM ' . Article::tableName()])
+                    ]
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
