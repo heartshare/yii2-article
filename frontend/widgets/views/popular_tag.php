@@ -3,7 +3,7 @@ use yii\helpers\Url;
 use yii\helpers\Html;
 
 /**
- * @var \yuncms\tag\models\Tag $tags
+ * @var \yuncms\tag\models\Tag[] $tags
  */
 ?>
 <div class="widget-box">

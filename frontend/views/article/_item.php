@@ -1,4 +1,8 @@
 <?php
+
+/**
+ * @var
+ */
 use yii\helpers\Url;
 use yii\helpers\Html;
 
@@ -7,7 +11,7 @@ use yii\helpers\Html;
 <?php if ($model->cover): ?>
     <div class="article-rank hidden-xs">
         <a href="<?= Url::to(['/article/article/view', 'uuid' => $model->uuid]); ?>" target="_blank">
-            <img style="width: 200px;height:120px;"                  src="<?=$model->cover?>">
+            <img style="width: 200px;height:120px;" src="<?=$model->cover?>">
         </a>
     </div>
 <?php endif; ?>

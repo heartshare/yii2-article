@@ -170,7 +170,7 @@ class ArticleController extends Controller
         $model = $this->findModel($id);
         if ($model->isAuthor()) {
             if ($model->load(Yii::$app->request->post()) && $model->save()) {
-                Yii::$app->getSession()->setFlash('success', Yii::t('article', 'Note updated.'));
+                Yii::$app->getSession()->setFlash('success', Yii::t('article', 'Article updated.'));
                 return $this->redirect(['view', 'uuid' => $model->uuid]);
             }
             return $this->render('update', ['model' => $model]);
@@ -190,7 +190,7 @@ class ArticleController extends Controller
         $model = $this->findModel($id);
         if ($model->isAuthor()) {
             $model->delete();
-            Yii::$app->getSession()->setFlash('success', Yii::t('article', 'Note has been deleted'));
+            Yii::$app->getSession()->setFlash('success', Yii::t('article', 'Article has been deleted'));
             return $this->redirect(['index']);
         }
         throw new ForbiddenHttpException(Yii::t('yii', 'You are not allowed to perform this action.'));
@@ -210,7 +210,7 @@ class ArticleController extends Controller
         if (($model = Article::findOne(['id' => $id])) != null) {
             return $model;
         }
-        throw new NotFoundHttpException('The requested page does not exist');
+        throw new NotFoundHttpException(Yii::t('yii', 'The requested page does not exist'));
     }
 
     /**
@@ -227,6 +227,6 @@ class ArticleController extends Controller
         if (($model = Article::findOne(['uuid' => $uuid])) != null) {
             return $model;
         }
-        throw new NotFoundHttpException('The requested page does not exist');
+        throw new NotFoundHttpException(Yii::t('yii', 'The requested page does not exist'));
     }
 }

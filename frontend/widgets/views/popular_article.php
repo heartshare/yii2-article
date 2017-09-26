@@ -1,9 +1,10 @@
 <?php
+
 use yii\helpers\Url;
 use yii\helpers\Html;
 
 /**
- * @var \yuncms\tag\models\Tag $tags
+ * @var \yuncms\article\models\Article[] $models
  */
 ?>
 <div class="widget-box mt-30">

@@ -77,7 +77,7 @@ class ArticleController extends Controller
     {
         $model = new Article();
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            Yii::$app->getSession()->setFlash('success', Yii::t('app', 'Create success.'));
+            Yii::$app->getSession()->setFlash('success', Yii::t('article', 'Create success.'));
             return $this->redirect(['view', 'id' => $model->id]);
         }
         return $this->render('create', [
@@ -95,7 +95,7 @@ class ArticleController extends Controller
     {
         $model = $this->findModel($id);
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            Yii::$app->getSession()->setFlash('success', Yii::t('app', 'Update success.'));
+            Yii::$app->getSession()->setFlash('success', Yii::t('article', 'Update success.'));
             return $this->redirect(['view', 'id' => $model->id]);
         }
         return $this->render('update', [
@@ -113,7 +113,7 @@ class ArticleController extends Controller
     {
         $model = $this->findModel($id);
         $model->setPublished();
-        Yii::$app->getSession()->setFlash('success', Yii::t('app', 'Update success.'));
+        Yii::$app->getSession()->setFlash('success', Yii::t('article', 'Update success.'));
         return $this->redirect(Url::previous('actions-redirect'));
     }
 
@@ -127,9 +127,9 @@ class ArticleController extends Controller
     {
         $model = $this->findModel($id);
         if ($model->delete()) {
-            Yii::$app->getSession()->setFlash('success', Yii::t('app', 'Delete success.'));
+            Yii::$app->getSession()->setFlash('success', Yii::t('article', 'Delete success.'));
         } else {
-            Yii::$app->getSession()->setFlash('success', Yii::t('app', 'Delete failed.'));
+            Yii::$app->getSession()->setFlash('success', Yii::t('article', 'Delete failed.'));
         }
         return $this->redirect(['index']);
     }
@@ -141,9 +141,9 @@ class ArticleController extends Controller
                 $model = $this->findModel($id);
                 $model->delete();
             }
-            Yii::$app->getSession()->setFlash('success', Yii::t('app', 'Delete success.'));
+            Yii::$app->getSession()->setFlash('success', Yii::t('article', 'Delete success.'));
         } else {
-            Yii::$app->getSession()->setFlash('success', Yii::t('app', 'Delete failed.'));
+            Yii::$app->getSession()->setFlash('success', Yii::t('article', 'Delete failed.'));
         }
 
         return $this->redirect(['index']);
@@ -161,7 +161,7 @@ class ArticleController extends Controller
         if (($model = Article::findOne($id)) !== null) {
             return $model;
         } else {
-            throw new NotFoundHttpException (Yii::t('app', 'The requested page does not exist.'));
+            throw new NotFoundHttpException (Yii::t('yii', 'The requested page does not exist.'));
         }
     }
 }
