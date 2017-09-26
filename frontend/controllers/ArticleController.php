@@ -17,6 +17,7 @@ use yii\filters\AccessControl;
 use yii\data\ActiveDataProvider;
 use yii\web\ForbiddenHttpException;
 use yii\web\NotFoundHttpException;
+use yuncms\article\jobs\UpdateViewsJob;
 use yuncms\tag\models\Tag;
 use yuncms\article\models\Article;
 
@@ -127,7 +128,9 @@ class ArticleController extends Controller
             $model = $this->findModelByUUID($uuid);
         }
         if ($model && ($model->isActive() || $model->isAuthor())) {
-            if (!$model->isAuthor()) $model->updateCounters(['views' => 1]);
+            if (!$model->isAuthor()) {
+                Yii::$app->queue->push(new UpdateViewsJob(['id' => $model->id]));
+            }
             return $this->render('view', [
                 'model' => $model,
             ]);

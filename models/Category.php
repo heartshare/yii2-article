@@ -10,11 +10,10 @@ namespace yuncms\article\models;
 use Yii;
 use yii\db\Query;
 use yii\db\ActiveRecord;
-use yii\behaviors\TimestampBehavior;
-use yii\helpers\ArrayHelper;
-use Overtrue\Pinyin\Pinyin;
 use yii\helpers\Inflector;
-use yuncms\user\models\Collection;
+use yii\helpers\ArrayHelper;
+use yii\behaviors\TimestampBehavior;
+use yuncms\collection\models\Collection;
 
 /**
  * Class Category
@@ -24,7 +23,6 @@ use yuncms\user\models\Collection;
  * @property string $slug 标识
  * @property string $keywords 关键词
  * @property string $description 描述
- * @property string $slug 拼音
  * @property string $letter 首字母
  * @property int $frequency 热度
  * @package yuncms\article\models
@@ -136,14 +134,13 @@ class Category extends ActiveRecord
         $parent = $this->parent;
         $db = static::getDb();
         $query = (new Query)->select(['parent'])
-            ->from(static::tableName())
-            ->where('[[id]]=:id');
+            ->from(static::tableName());
         while ($parent) {
             if ($this->id == $parent) {
                 $this->addError('parent_name', Yii::t('article', 'Loop detected.'));
                 return;
             }
-            $parent = $query->params([':id' => $parent])->scalar($db);
+            $parent = $query->where(['id'=>$parent])->scalar($db);
         }
     }
 

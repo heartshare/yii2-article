@@ -8,7 +8,6 @@ use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\web\NotFoundHttpException;
 use yuncms\article\models\Article;
-use yuncms\article\models\ArticleData;
 use yuncms\article\backend\models\ArticleSearch;
 
 /**

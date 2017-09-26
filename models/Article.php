@@ -9,10 +9,13 @@ namespace yuncms\article\models;
 
 use Yii;
 use yii\db\ActiveRecord;
+use yii\helpers\ArrayHelper;
 use yuncms\tag\models\Tag;
-use yuncms\system\models\Category;
-use yuncms\collection\models\Collection;
+use yuncms\user\jobs\UpdateExtEndCounterJob;
 use yuncms\user\models\User;
+use yuncms\system\ScanInterface;
+use yuncms\article\models\Category;
+use yuncms\collection\models\Collection;
 
 /**
  * Class Article
@@ -38,10 +41,23 @@ use yuncms\user\models\User;
  *
  * @package yuncms\article\models
  */
-class Article extends ActiveRecord
+class Article extends ActiveRecord implements ScanInterface
 {
-    const STATUS_PENDING = 0;
-    const STATUS_ACTIVE = 1;
+    //场景定义
+    const SCENARIO_CREATE = 'create';//创建
+    const SCENARIO_UPDATE = 'update';//更新
+
+    //状态定义
+    const STATUS_DRAFT = 'draft';//草稿
+    const STATUS_REVIEW = 'review';//审核
+    const STATUS_REJECTED = 'rejected';//拒绝
+    const STATUS_PUBLISHED = 'published';//发布
+
+    //事件定义
+    const BEFORE_PUBLISHED = 'beforePublished';
+    const AFTER_PUBLISHED = 'afterPublished';
+    const BEFORE_REJECTED = 'beforeRejected';
+    const AFTER_REJECTED = 'afterRejected';
 
     /**
      * @inheritdoc
@@ -79,6 +95,18 @@ class Article extends ActiveRecord
     /**
      * @inheritdoc
      */
+    public function scenarios()
+    {
+        $scenarios = parent::scenarios();
+        return ArrayHelper::merge($scenarios, [
+            static::SCENARIO_CREATE => [],
+            static::SCENARIO_UPDATE => [],
+        ]);
+    }
+
+    /**
+     * @inheritdoc
+     */
     public function rules()
     {
         return [
@@ -87,8 +115,8 @@ class Article extends ActiveRecord
             ['is_top', 'boolean'],
             ['is_best', 'boolean'],
             [['is_best', 'is_top'], 'default', 'value' => false],
-            ['status', 'default', 'value' => self::STATUS_PENDING],
-            ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_PENDING]],
+            ['status', 'default', 'value' => self::STATUS_DRAFT],
+            ['status', 'in', 'range' => [self::STATUS_DRAFT, self::STATUS_REVIEW, self::STATUS_REJECTED, self::STATUS_PUBLISHED]],
         ];
     }
 
@@ -120,7 +148,7 @@ class Article extends ActiveRecord
 
     public function isActive()
     {
-        return $this->status == static::STATUS_ACTIVE;
+        return $this->status == static::STATUS_PUBLISHED;
     }
 
     /**
@@ -130,17 +158,6 @@ class Article extends ActiveRecord
     public function isAuthor()
     {
         return $this->user_id == Yii::$app->user->id;
-    }
-
-    /**
-     * 审核通过
-     * @return int
-     */
-    public function setPublished()
-    {
-        //记录动态
-        doing($this->user_id, 'create_article', get_class($this), $this->id, $this->title, mb_substr(strip_tags($this->content), 0, 200));
-        return $this->updateAttributes(['status' => static::STATUS_ACTIVE, 'published_at' => time()]);
     }
 
     /**
@@ -189,6 +206,63 @@ class Article extends ActiveRecord
     }
 
     /**
+     * 机器审核
+     * @param int $id model id
+     * @param string $suggestion the ID to be looked for
+     * @return void
+     */
+    public static function review($id, $suggestion)
+    {
+        if (($model = static::findOne($id)) != null) {
+            if ($suggestion == 'pass') {
+                $model->setPublished();
+            } elseif ($suggestion == 'block') {
+                $model->setRejected('');
+            } elseif ($suggestion == 'review') { //人工审核，不做处理
+
+            }
+        }
+    }
+
+    /**
+     * 获取待审
+     * @param int $id
+     * @return string 待审核的内容字符串
+     */
+    public static function findReview($id)
+    {
+        if (($model = static::findOne($id)) != null) {
+            return $model->content;
+        }
+        return null;
+    }
+
+    /**
+     * 审核通过
+     * @return int
+     */
+    public function setPublished()
+    {
+        $this->trigger(self::BEFORE_PUBLISHED);
+        $rows = $this->updateAttributes(['status' => static::STATUS_PUBLISHED, 'published_at' => time()]);
+        $this->trigger(self::AFTER_PUBLISHED);
+        return $rows;
+    }
+
+    /**
+     * 拒绝通过
+     * @param string $failedReason 拒绝原因
+     * @return int
+     */
+    public function setRejected($failedReason)
+    {
+        $this->trigger(self::BEFORE_REJECTED);
+        $rows = $this->updateAttributes(['status' => static::STATUS_REJECTED, 'failed_reason' => $failedReason]);
+        $this->trigger(self::AFTER_REJECTED);
+        return $rows;
+    }
+
+    /**
      * {@inheritdoc}
      */
     public static function tableName()
@@ -214,7 +288,7 @@ class Article extends ActiveRecord
         if ($insert) {
             $this->updateAttributes(['uuid' => $this->generateKey()]);
             /* 用户文章数+1 */
-            Yii::$app->user->identity->extend->updateCounters(['articles' => 1]);
+            Yii::$app->queue->push(new UpdateExtEndCounterJob(['field' => 'articles', 'counter' => 1, 'user_id' => $this->user_id]));
         }
         return parent::afterSave($insert, $changedAttributes);
     }
@@ -241,7 +315,8 @@ class Article extends ActiveRecord
 
     public function afterDelete()
     {
-        $this->user->extend->updateCounters(['articles' => -1]);
+        Yii::$app->queue->push(new UpdateExtEndCounterJob(['field' => 'articles', 'counter' => -1, 'user_id' => $this->user_id]));
         parent::afterDelete();
+
     }
 }
