@@ -42,7 +42,7 @@ class ArticleQuery extends ActiveQuery
      */
     public function active()
     {
-        return $this->andWhere(['status' => Article::STATUS_ACTIVE]);
+        return $this->andWhere(['status' => Article::STATUS_PUBLISHED]);
     }
 
     /**
