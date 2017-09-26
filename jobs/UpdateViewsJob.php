@@ -9,15 +9,19 @@ namespace yuncms\article\jobs;
 
 use Yii;
 use yii\base\Object;
+use yii\queue\Queue;
 use yii\queue\RetryableJob;
 use yuncms\article\models\Article;
 
+/**
+ * 异步更新点击数
+ * @package yuncms\article\jobs
+ */
 class UpdateViewsJob extends Object implements RetryableJob
 {
     public $id;
 
     /**
-     * 执行实名认证任务
      * @param Queue $queue
      */
     public function execute($queue)
