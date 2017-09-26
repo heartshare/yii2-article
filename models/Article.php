@@ -9,13 +9,12 @@ namespace yuncms\article\models;
 
 use Yii;
 use yii\db\ActiveRecord;
-use yii\helpers\ArrayHelper;
 use yuncms\tag\models\Tag;
-use yuncms\user\jobs\UpdateExtEndCounterJob;
 use yuncms\user\models\User;
+use yii\helpers\ArrayHelper;
 use yuncms\system\ScanInterface;
-use yuncms\article\models\Category;
 use yuncms\collection\models\Collection;
+use yuncms\user\jobs\UpdateExtEndCounterJob;
 
 /**
  * Class Article
@@ -273,8 +272,10 @@ class Article extends ActiveRecord implements ScanInterface
     public static function getStatusList()
     {
         return [
-            self::STATUS_PENDING => Yii::t('article', 'Status Pending'),
-            self::STATUS_ACTIVE => Yii::t('article', 'Status Active'),
+            self::STATUS_DRAFT => Yii::t('article', 'Status Draft'),
+            self::STATUS_REVIEW => Yii::t('article', 'Status Review'),
+            self::STATUS_REJECTED => Yii::t('article', 'Status Rejected'),
+            self::STATUS_PUBLISHED => Yii::t('article', 'Status Published'),
         ];
     }
 
