@@ -9,8 +9,8 @@ use xutl\inspinia\Toolbar;
 use xutl\inspinia\Alert;
 
 /* @var $this yii\web\View */
-/* @var $searchModel yuncms\article\models\ArticleSearch */
-/* @var $dataProvider yii\data\ActiveDataProvider */
+/* @var yuncms\article\models\ArticleSearch $searchModel  */
+/* @var yii\data\ActiveDataProvider $dataProvider  */
 
 $this->title = Yii::t('article', 'Manage Article');
 $this->params['breadcrumbs'][] = $this->title;

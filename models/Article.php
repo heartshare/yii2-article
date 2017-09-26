@@ -31,7 +31,8 @@ use yuncms\user\jobs\UpdateExtEndCounterJob;
  * @property int $supports
  * @property int $collections
  * @property int $views
- *
+ * @property boolean $is_top 是否置顶
+ * @property boolean $is_best 是否推荐
  * @property int $created_at
  * @property int $updated_at
  * @property int $published_at
