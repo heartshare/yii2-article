@@ -32,8 +32,7 @@ class CommentController extends Controller
 
         $query = Comment::find()->where([
             'source_id' => $model->id,
-            'status' => Comment::STATUS_PUBLISHED
-        ])->with('user');
+        ])->active()->with('user');
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,

@@ -3,14 +3,15 @@
 
 use yii\helpers\Url;
 use yii\helpers\Html;
-
+use yuncms\article\frontend\assets\ArticlePluginAsset;
+ArticlePluginAsset::register($this);
 $this->title = $model->title;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('article', 'Articles'), 'url' => Url::to(['/article/article/index'])];
 $this->params['breadcrumbs'][] = $model->title;
 $this->registerJs('
     var article_id = "' . $model->id . '";
-    load_comments(\'article\',article_id);
-    jQuery("#comments-article-"+article_id).collapse(\'show\');
+    yii.article.load_comments(article_id);
+    jQuery("#comments-"+article_id).collapse(\'show\');
 ');
 ?>
 <div class="row">
