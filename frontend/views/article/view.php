@@ -6,9 +6,9 @@ use yii\helpers\Html;
 use yuncms\article\frontend\assets\ArticlePluginAsset;
 
 ArticlePluginAsset::register($this);
-$this->title = $model->title;
+$this->title = Html::encode($model->title);
 $this->params['breadcrumbs'][] = ['label' => Yii::t('article', 'Articles'), 'url' => Url::to(['/article/article/index'])];
-$this->params['breadcrumbs'][] = $model->title;
+$this->params['breadcrumbs'][] = $this->title;
 $this->registerJs('
     var article_id = "' . $model->id . '";
     yii.article.load_comments(article_id);
