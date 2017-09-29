@@ -31,11 +31,14 @@ class CommentController extends Controller
         $model = $this->findModel($id);
 
         $query = Comment::find()->where([
-            'source_id' => $id,
+            'source_id' => $model->id,
         ])->with('user');
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+        ]);
+        return $this->renderPartial('list', [
+            'dataProvider' => $dataProvider
         ]);
     }
 
