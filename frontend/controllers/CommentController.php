@@ -37,7 +37,7 @@ class CommentController extends Controller
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
-        return $this->renderPartial('list', [
+        return $this->renderPartial('index', [
             'dataProvider' => $dataProvider
         ]);
     }
