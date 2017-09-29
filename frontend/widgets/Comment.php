@@ -10,7 +10,7 @@ use Yii;
 use yii\base\Widget;
 use yii\helpers\Url;
 use yii\base\InvalidConfigException;
-use yuncms\comment\frontend\models\CommentForm;
+use yuncms\article\frontend\models\CommentForm;
 
 /**
  * Class Comment

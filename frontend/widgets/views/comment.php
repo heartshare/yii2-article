@@ -1,4 +1,5 @@
 <?php
+
 use yii\helpers\Url;
 use yii\helpers\Html;
 use yuncms\comment\frontend\widgets\Comment;
@@ -25,10 +26,8 @@ CommentAsset::register($this);
                     <a href="#" class="text-muted collapse-cancel"
                        data-collapse_id="comments-<?= $source_id ?>"><?= Comment::t('comment', 'Clean') ?></a>
                 <?php endif; ?>
-                <button type="submit" class="btn btn-primary btn-sm ml-10 comment-btn"
-                        id="<?= $source_type ?>-comment-6-btn"
+                <button type="submit" class="btn btn-primary btn-sm ml-10 article-comment-btn"
                         data-source_id="<?= $source_id ?>"
-                        data-source_type="<?= $source_type ?>"
                         data-to_user_id="0"
                 ><?= Comment::t('comment', 'Submit Comment') ?></button>
             </div>

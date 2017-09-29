@@ -15,7 +15,7 @@ use yuncms\comment\models\CommentQuery;
  */
 class Comment extends \yuncms\comment\models\Comment
 {
-    const TYPE = 'article';
+    const TYPE = 'yuncms\article\models\Article';
 
     /**
      * @return void

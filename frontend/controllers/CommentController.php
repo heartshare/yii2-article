@@ -8,9 +8,13 @@
 namespace yuncms\article\frontend\controllers;
 
 use Yii;
+use yii\filters\AccessControl;
+use yii\filters\VerbFilter;
 use yii\web\Controller;
 use yii\data\ActiveDataProvider;
+use yii\web\ForbiddenHttpException;
 use yii\web\NotFoundHttpException;
+use yuncms\article\frontend\models\CommentForm;
 use yuncms\article\models\Article;
 use yuncms\article\models\Comment;
 
@@ -22,6 +26,36 @@ class CommentController extends Controller
 {
 
     /**
+     * @inheritdoc
+     */
+    public function behaviors()
+    {
+        return [
+            'verbs' => [
+                'class' => VerbFilter::className(),
+                'actions' => [
+                    'create' => ['post'],
+                ],
+            ],
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'actions' => ['index', 'create'],
+                        'roles' => ['@', '?']
+                    ],
+                    [
+                        'allow' => true,
+                        'actions' => ['store'],
+                        'roles' => ['@']
+                    ],
+                ],
+            ],
+        ];
+    }
+
+    /**
      * @param int $id
      * @return string
      * @throws NotFoundHttpException
@@ -29,7 +63,6 @@ class CommentController extends Controller
     public function actionIndex($id)
     {
         $model = $this->findModel($id);
-
         $query = Comment::find()->where([
             'source_id' => $model->id,
         ])->active()->with('user');
@@ -43,19 +76,26 @@ class CommentController extends Controller
     }
 
     /**
-     * 创建评论
-     * @return string|\yii\web\Response
+     * 提交评论
+     * @return string
+     * @throws NotFoundHttpException
      */
     public function actionCreate()
     {
-        $model = new Comment();
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'uuid' => $model->uuid]);
-        } else {
-            return $this->render('create', [
-                'model' => $model,
-            ]);
+        if (($source = $this->findModel(Yii::$app->request->post('source_id'))) != null) {
+            $model = new Comment();
+            $model->scenario = Comment::SCENARIO_CREATE;
+            if ($model->load(Yii::$app->request->post(), '') && $model->save()) {
+                $source->updateCounters(['comments' => 1]);
+                if ($model->to_user_id > 0) {
+                    notify(Yii::$app->user->id, $model->to_user_id, 'reply_comment',  $source->title, $source->id, $model->content, 'article', $source->id);
+                } else {
+                    notify(Yii::$app->user->id, $source->user_id, 'comment_article',  $source->title, $source->id, $model->content, 'article', $source->id);
+                }
+                return $this->renderPartial('detail', ['model' => $model]);
+            }
         }
+        throw new NotFoundHttpException(Yii::t('yii', 'The requested page does not exist'));
     }
 
     /**

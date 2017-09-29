@@ -4,6 +4,7 @@
 use yii\helpers\Url;
 use yii\helpers\Html;
 use yuncms\article\frontend\assets\ArticlePluginAsset;
+
 ArticlePluginAsset::register($this);
 $this->title = $model->title;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('article', 'Articles'), 'url' => Url::to(['/article/article/index'])];
@@ -81,8 +82,39 @@ $this->registerJs('
         </div>
 
         <div class="widget-answers mt-15">
-            <h2 class="h4 post-title"><?= Yii::t('article', '{n, plural, =0{No comment} =1{One comment} other{# reviews}}', ['n' => $model->comments]); ?></h2>
-            <?= \yuncms\comment\frontend\widgets\Comment::widget(['source_type' => 'article', 'source_id' => $model->id, 'hide_cancel' => false]) ?>
+            <h2 class="h4 post-title">
+                <?= Yii::t('article', '{n, plural, =0{No comment} =1{One comment} other{# reviews}}', ['n' => $model->comments]); ?>
+            </h2>
+            <div class="collapse widget-comments mb-20" id="comments-<?= $model->id ?>"
+                 data-source_id="<?= $model->id ?>">
+                <div class="widget-comment-list">
+                </div>
+                <?php if (!Yii::$app->user->isGuest): ?>
+                    <div class="widget-comment-form row">
+                        <form class="col-md-12">
+                            <div class="form-group">
+                    <textarea name="content" placeholder="<?= Yii::t('article', 'Write your comment'); ?>"
+                              class="form-control"
+                              id="comment-content-<?= $model->id ?>"></textarea>
+                            </div>
+                        </form>
+                        <div class="col-md-12 text-right">
+                            <a href="#" class="text-muted collapse-cancel"
+                               data-collapse_id="comments-<?= $model->id ?>">Clean</a>
+                            <button type="submit" class="btn btn-primary btn-sm ml-10 article-comment-btn"
+                                    data-source_id="<?= $model->id ?>"
+                                    data-to_user_id="0"><?= Yii::t('article', 'Comment'); ?>
+                            </button>
+                        </div>
+                    </div>
+                <?php else: ?>
+                    <div class="widget-comment-form row">
+                        <div class="col-md-12">
+                            请先 <a href="<?= Url::to(['/user/security/login']) ?>">登录</a> 后评论
+                        </div>
+                    </div>
+                <?php endif ?>
+            </div>
         </div>
 
     </div><!-- /.main -->
