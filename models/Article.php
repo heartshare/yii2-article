@@ -110,7 +110,7 @@ class Article extends ActiveRecord implements ScanInterface
     public function rules()
     {
         return [
-            [['title', 'category_id', 'content'], 'required'],
+            [['title', 'content'], 'required'],
             [['title', 'sub_title', 'cover', 'description'], 'filter', 'filter' => 'trim'],
             ['is_top', 'boolean'],
             ['is_best', 'boolean'],
