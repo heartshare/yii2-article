@@ -7,7 +7,7 @@ use yii\helpers\Html;
  */
 ?>
 <div class="widget-box">
-    <h2 class="h4 widget-box-title"><?= Yii::t('article', 'Hot Topic') ?> <a href="<?=Url::to(['/tag/index'])?>" title="<?= Yii::t('article', 'More') ?>">»</a></h2>
+    <h2 class="h4 widget-box-title"><?= Yii::t('article', 'Hot Topic') ?> <a href="<?=Url::to(['/topic/index'])?>" title="<?= Yii::t('article', 'More') ?>">»</a></h2>
     <ul class="taglist-inline multi">
         <?php
         foreach ($tags as $tag):?>

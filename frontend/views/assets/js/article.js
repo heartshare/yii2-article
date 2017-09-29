@@ -4,6 +4,7 @@ window.yii.article = (function ($) {
         // it will also not be called for all its child modules. If this property is undefined, it means true.
         isActive: true,
         init: function () {
+            console.info('init article.');
             $(".article-comment-btn").click(function () {
                 var id = $(this).data('id');
                 var to_user_id = $(this).data('to_user_id');
