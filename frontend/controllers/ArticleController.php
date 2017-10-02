@@ -18,6 +18,7 @@ use yii\data\ActiveDataProvider;
 use yii\web\ForbiddenHttpException;
 use yii\web\NotFoundHttpException;
 use yuncms\article\jobs\UpdateViewsJob;
+use yuncms\article\models\ArticleIndex;
 use yuncms\tag\models\Tag;
 use yuncms\article\models\Article;
 
@@ -60,7 +61,7 @@ class ArticleController extends Controller
                 'rules' => [
                     [
                         'allow' => true,
-                        'actions' => ['index', 'view', 'tag'],
+                        'actions' => ['index', 'search', 'view', 'tag'],
                         'roles' => ['?', '@'],
                     ],
                     [
@@ -90,6 +91,16 @@ class ArticleController extends Controller
         ]);
         $query->applyOrder(Yii::$app->request->get('order', 'new'));
         return $this->render('index', ['dataProvider' => $dataProvider]);
+    }
+
+    /**
+     * 搜索
+     * @param string $q
+     */
+    public function actionSearch($q)
+    {
+        $query = ArticleIndex::find()->match($q)->all();
+        print_r($query);
     }
 
     /**
