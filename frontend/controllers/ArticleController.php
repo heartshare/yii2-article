@@ -96,11 +96,15 @@ class ArticleController extends Controller
     /**
      * 搜索
      * @param string $q
+     * @return string
      */
     public function actionSearch($q)
     {
-        $query = ArticleIndex::find()->match($q)->all();
-        print_r($query);
+        $query = ArticleIndex::find()->match($q);
+        $dataProvider = new \yii\sphinx\ActiveDataProvider([
+            'query' => $query,
+        ]);
+        return $this->render('search', ['dataProvider' => $dataProvider, 'q' => $q]);
     }
 
     /**
