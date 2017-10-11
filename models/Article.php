@@ -9,6 +9,7 @@ namespace yuncms\article\models;
 
 use Yii;
 use yii\db\ActiveRecord;
+use yuncms\system\jobs\ScanTextJob;
 use yuncms\tag\models\Tag;
 use yuncms\user\models\User;
 use yii\helpers\ArrayHelper;
@@ -115,7 +116,7 @@ class Article extends ActiveRecord implements ScanInterface
             ['is_top', 'boolean'],
             ['is_best', 'boolean'],
             [['is_best', 'is_top'], 'default', 'value' => false],
-            ['status', 'default', 'value' => self::STATUS_DRAFT],
+            ['status', 'default', 'value' => self::STATUS_REVIEW],
             ['status', 'in', 'range' => [self::STATUS_DRAFT, self::STATUS_REVIEW, self::STATUS_REJECTED, self::STATUS_PUBLISHED]],
         ];
     }
@@ -291,6 +292,14 @@ class Article extends ActiveRecord implements ScanInterface
             $this->updateAttributes(['uuid' => $this->generateKey()]);
             /* 用户文章数+1 */
             Yii::$app->queue->push(new UpdateExtEndCounterJob(['field' => 'articles', 'counter' => 1, 'user_id' => $this->user_id]));
+        }
+        if ($this->status == self::STATUS_REVIEW) {
+            Yii::$app->queue->push(new ScanTextJob([
+                'modelId' => $this->id,
+                'modelClass' => get_class($this),
+                'category' => 'category',
+                'scenario' => 'new'
+            ]));
         }
         return parent::afterSave($insert, $changedAttributes);
     }
