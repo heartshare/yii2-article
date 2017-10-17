@@ -15,7 +15,7 @@ class M170119085622Create_article_table extends Migration
         }
 
         $this->createTable('{{%article}}', [
-            'id' => $this->primaryKey(),
+            'id' => $this->primaryKey()->unsigned(),
             'uuid' => $this->string(),
             'user_id' => $this->integer()->notNull()->defaultValue(0),
             'category_id' => $this->string()->comment('栏目ID'),

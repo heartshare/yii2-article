@@ -12,8 +12,8 @@ class M170119102205Create_article_tag_table extends Migration
     public function up()
     {
         $this->createTable('{{%article_tag}}', [
-            'article_id' => $this->integer(),
-            'tag_id' => $this->integer(),
+            'article_id' => $this->integer()->comment('Article ID'),
+            'tag_id' => $this->integer()->unsigned()->comment('Tag ID'),
         ]);
         $this->createIndex('article_id','{{%article_tag}}','article_id');
         $this->createIndex('tag_id','{{%article_tag}}','tag_id');

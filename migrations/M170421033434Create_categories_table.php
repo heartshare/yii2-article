@@ -15,8 +15,8 @@ class M170421033434Create_categories_table extends Migration
         }
 
         $this->createTable('{{%article_categories}}', [
-            'id' => $this->primaryKey(),
-            'parent' => $this->integer(),
+            'id' => $this->primaryKey()->unsigned(),
+            'parent' => $this->integer()->unsigned(),
             'name' => $this->string()->notNull()->comment('名字'),
             'slug' => $this->string(50),
             'keywords' => $this->string(),
