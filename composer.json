@@ -1,6 +1,6 @@
 {
   "name": "yuncms/yii2-article",
-  "description": "The article extension for the yuncms",
+  "description": "The article module for the yuncms.",
   "keywords": [
     "yuncms",
     "article"
